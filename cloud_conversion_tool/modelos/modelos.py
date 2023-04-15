@@ -34,7 +34,7 @@ class UserSchema(SQLAlchemyAutoSchema):
          load_instance = True
 
 class FileSchema(SQLAlchemyAutoSchema):
-    medio = EnumADiccionario(attribute=("state"))
+    state = EnumADiccionario(attribute=("state"))
     class Meta:
          model = File
          include_relationships = True
