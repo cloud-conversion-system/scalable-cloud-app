@@ -22,9 +22,9 @@ class Status(enum.Enum):
 class Task(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     status = db.Column(db.Enum(Status), default=Status.UPLOADED)
-    timeStamp = db.Column(db.DateTime, default=datetime.utcnow)
-    fileName = db.Column(db.String(200))
-    newFormat = db.Column(db.String(50))
+    time_stamp = db.Column(db.DateTime, default=datetime.utcnow)
+    file_name = db.Column(db.String(200))
+    new_format = db.Column(db.String(50))
 
 
 class EnumADiccionario(fields.Field):
