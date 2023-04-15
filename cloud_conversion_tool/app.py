@@ -21,6 +21,7 @@ api.add_resource(VistaLogIn, '/api/auth/login')
 
 jwt = JWTManager(app)
 
+
 @app.route('/', methods=['GET', 'POST'])
 def home():
     if request.method == 'POST':
