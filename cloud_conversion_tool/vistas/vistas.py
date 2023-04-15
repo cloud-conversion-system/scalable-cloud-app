@@ -67,10 +67,12 @@ class ViewTask(Resource):
         db.session.commit()
         return '', 204
 
-# class ViewFile(Resource):
-#    @jwt_required()
-#    def get(self, id_file):
-#        return file_schema.dump(File.query.get_or_404(id_file))
+
+class ViewFile(Resource):
+    @jwt_required()
+    def get(self, id_file):
+        files = Task.query.filter_by(fileName=id_file).all()
+        return [task_schema.dump(f) for f in files]
 
 
 def compress_file(file_name, algorithm):
@@ -91,3 +93,4 @@ def compress_file(file_name, algorithm):
         with tarfile.open(file_path+'.tar.bz2', 'w:bz2') as tbzf:
             tbzf.add(file_path, arcname=os.path.basename(file_path))
         return f'El archivo {file_path} ha sido comprimido con TAR.BZ2'
+
