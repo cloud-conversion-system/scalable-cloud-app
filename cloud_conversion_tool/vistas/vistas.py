@@ -58,7 +58,8 @@ class ViewTask(Resource):
         db.session.commit()
         return '', 204
 
-#class ViewFile(Resource):
-#    @jwt_required()
-#    def get(self, id_file):
-#        return file_schema.dump(File.query.get_or_404(id_file))
+class ViewFile(Resource):
+    @jwt_required()
+    def get(self, id_file):
+        files = Task.query.filter_by(fileName=id_file).all()
+        return [task_schema.dump(f) for f in files]
