@@ -1,6 +1,6 @@
 from cloud_conversion_tool import create_app
 from flask import request
-from .modelos import db, User
+from .modelos import db, User, Task
 import zipfile
 import py7zr
 import tarfile
@@ -11,7 +11,6 @@ app_context.push()
 
 db.init_app(app)
 db.create_all()
-
 
 
 @app.route('/', methods=['GET', 'POST'])

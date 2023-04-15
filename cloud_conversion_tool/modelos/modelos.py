@@ -1,3 +1,4 @@
+from datetime import datetime
 from flask_sqlalchemy import SQLAlchemy
 from marshmallow_sqlalchemy import SQLAlchemyAutoSchema
 from marshmallow import fields
@@ -5,21 +6,26 @@ import enum
 
 db = SQLAlchemy()
 
-class User (db.Model):
+
+class User(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     username = db.Column(db.String(50))
+    email = db.Column(db.String(50))
     password = db.Column(db.String(50))
-    files = db.relationship('File', cascade='all, delete, delete-orphan')
 
-class State(enum.Enum):
-   UPLOADED = 1
-   PROCESSED = 2
 
-class File (db.Model):
+class Status(enum.Enum):
+    UPLOADED = 1
+    PROCESSED = 2
+
+
+class Task(db.Model):
     id = db.Column(db.Integer, primary_key=True)
-    file = db.Column(db.LargeBinary)
-    state = db.Column(db.Enum(State))
-    user = db.Column(db.Integer, db.ForeignKey('user.id'))
+    status = db.Column(db.Enum(Status), default=Status.UPLOADED)
+    timeStamp = db.Column(db.DateTime, default=datetime.utcnow)
+    fileName = db.Column(db.String(200))
+    newFormat = db.Column(db.String(50))
+
 
 class EnumADiccionario(fields.Field):
     def _serialize(self, value, attr, obj, **kwargs):
@@ -27,15 +33,18 @@ class EnumADiccionario(fields.Field):
             return None
         return {"llave": value.name, "valor": value.value}
 
+
 class UserSchema(SQLAlchemyAutoSchema):
     class Meta:
-         model = User
-         include_relationships = True
-         load_instance = True
+        model = User
+        include_relationships = True
+        load_instance = True
 
-class FileSchema(SQLAlchemyAutoSchema):
-    state = EnumADiccionario(attribute=("state"))
+
+class TaskSchema(SQLAlchemyAutoSchema):
+    status = EnumADiccionario(attribute=("status"))
+
     class Meta:
-         model = File
-         include_relationships = True
-         load_instance = True
+        model = Task
+        include_relationships = True
+        load_instance = True
