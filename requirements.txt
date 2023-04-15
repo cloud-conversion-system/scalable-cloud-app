@@ -10,3 +10,4 @@ marshmallow-sqlalchemy==0.25.0
 SQLAlchemy==1.4.15
 Werkzeug==2.0.1
 py7zr==0.20.5
+psycopg2
