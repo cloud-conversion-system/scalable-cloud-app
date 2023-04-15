@@ -11,7 +11,7 @@ from celery import Celery
 UPLOAD_FOLDER = './files'
 
 task_schema = TaskSchema()
-app = Celery( 'tasks', broker = 'redis://localhost:6379/0' )
+app = Celery( 'tasks', broker = 'redis://34.207.85.246:6379/0' )
 
 
 class VistaSignUp(Resource):
