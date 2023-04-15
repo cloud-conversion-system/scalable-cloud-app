@@ -1,6 +1,6 @@
 from flask_restful import Resource
 from ..modelos import db, User, Task, TaskSchema
-from flask import request
+from flask import request, send_from_directory
 from flask_jwt_extended import jwt_required, create_access_token
 import zipfile
 import py7zr
@@ -71,8 +71,13 @@ class ViewTask(Resource):
 class ViewFile(Resource):
     @jwt_required()
     def get(self, id_file):
-        files = Task.query.filter_by(fileName=id_file).all()
-        return [task_schema.dump(f) for f in files]
+        nombres_archivos = os.listdir(os.path.join(UPLOAD_FOLDER))
+        filename=""
+        for fileName in nombres_archivos:
+            name = fileName.split(".")[0]
+            if name==id_file:
+                filename= fileName
+        return send_from_directory(directory=UPLOAD_FOLDER, filename=filename, as_attachment=True)
 
 
 def compress_file(file_name, algorithm):
