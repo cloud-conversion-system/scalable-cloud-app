@@ -6,10 +6,12 @@ import zipfile
 import py7zr
 import tarfile
 import os
+from celery import Celery
 
 UPLOAD_FOLDER = './files'
 
 task_schema = TaskSchema()
+app = Celery( 'tasks', broker = 'redis://localhost:6379/0' )
 
 
 class VistaSignUp(Resource):
@@ -50,8 +52,7 @@ class ViewTasks(Resource):
         new_task = Task(file_name=file_name, new_format=new_format)
         db.session.add(new_task)
         db.session.commit()
-        # TODO: queue tasks and change status to processed
-        compress_file(file_name, new_format)
+        compress_file.delay(file_name, new_format)
         return task_schema.dump(new_task)
 
 
@@ -79,7 +80,7 @@ class ViewFile(Resource):
                 filename= fileName
         return send_from_directory(directory=UPLOAD_FOLDER, filename=filename, as_attachment=True)
 
-
+@app.task
 def compress_file(file_name, algorithm):
     file_path = os.path.join(UPLOAD_FOLDER, file_name)
     if algorithm == 'zip':

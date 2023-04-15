@@ -11,4 +11,5 @@ WORKDIR "/python-docker/cloud_conversion_tool"
 
 EXPOSE 80
 
+CMD [ "celery", "-A", "vistas/vistas", "worker", "-l", "info"]
 CMD [ "python3", "-m" , "flask", "run", "--host=0.0.0.0", "-p", "80"]
