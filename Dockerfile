@@ -9,6 +9,6 @@ COPY . .
 
 WORKDIR "/python-docker/cloud_conversion_tool"
 
-EXPOSE 5000
+EXPOSE 7070
 
-CMD [ "python3", "-m" , "flask", "run", "--host=0.0.0.0"]
+CMD [ "python3", "-m" , "flask", "run", "--host=0.0.0.0", "-p", "80"]
