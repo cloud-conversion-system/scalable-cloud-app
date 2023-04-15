@@ -2,7 +2,7 @@ from cloud_conversion_tool import create_app
 from flask import request
 from flask_restful import Api
 from .modelos import db, User, Task
-from .vistas import VistaLogIn, VistaSignUp
+from .vistas import VistaLogIn, VistaSignUp, ViewTask, ViewTasks
 from flask_jwt_extended import JWTManager
 import zipfile
 import py7zr
@@ -18,6 +18,8 @@ db.create_all()
 api = Api(app)
 api.add_resource(VistaSignUp, '/api/auth/signup')
 api.add_resource(VistaLogIn, '/api/auth/login')
+api.add_resource(ViewTasks, '/api/tasks')
+api.add_resource(ViewTask, '/api/task/<int:id_task>')
 
 jwt = JWTManager(app)
 
