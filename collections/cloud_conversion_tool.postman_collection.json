@@ -1,0 +1,405 @@
+{
+	"info": {
+		"_postman_id": "63aa8d46-5608-49b8-bf12-aa1db82be8a9",
+		"name": "cloud_conversion_tool",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "17534802"
+	},
+	"item": [
+		{
+			"name": "SignUp",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"username\":\"Andres2\",\r\n    \"email\": \"ejemplo2@uniandes.edu.co\",\r\n    \"password\": \"12312214124\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:5000/api/auth/signup",
+					"host": [
+						"localhost"
+					],
+					"port": "5000",
+					"path": [
+						"api",
+						"auth",
+						"signup"
+					]
+				}
+			},
+			"response": [
+				{
+					"name": "SignUp",
+					"originalRequest": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"username\":\"Andres2\",\r\n    \"email\": \"ejemplo2@uniandes.edu.co\",\r\n    \"password\": \"12312214124\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:5000/api/auth/signup",
+							"host": [
+								"localhost"
+							],
+							"port": "5000",
+							"path": [
+								"api",
+								"auth",
+								"signup"
+							]
+						}
+					},
+					"_postman_previewlanguage": null,
+					"header": null,
+					"cookie": [],
+					"body": "{\r\n    \"Message\": \"User created successfully\",\r\n    \"Access token\": \"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJmcmVzaCI6ZmFsc2UsImlhdCI6MTY4MTU5NDAzMywianRpIjoiNjdmMDZmYjctMjk2Ni00MDEzLWFjNTEtOGYwYjc5ODk0MjhmIiwidHlwZSI6ImFjY2VzcyIsInN1YiI6IkFuZHJlczIiLCJuYmYiOjE2ODE1OTQwMzMsImV4cCI6MTY4MTU5NDkzM30.u1Ed3ybikJo-RvX0mjJItmleXhmrW5AjWHFW7Fuz3ho\"\r\n}"
+				}
+			]
+		},
+		{
+			"name": "Login",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"username\":\"Andres2\",\r\n    \"password\": \"12312214124\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:5000/api/auth/login",
+					"host": [
+						"localhost"
+					],
+					"port": "5000",
+					"path": [
+						"api",
+						"auth",
+						"login"
+					]
+				}
+			},
+			"response": [
+				{
+					"name": "Login",
+					"originalRequest": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"username\":\"Andres2\",\r\n    \"password\": \"12312214124\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:5000/api/auth/login",
+							"host": [
+								"localhost"
+							],
+							"port": "5000",
+							"path": [
+								"api",
+								"auth",
+								"login"
+							]
+						}
+					},
+					"_postman_previewlanguage": null,
+					"header": null,
+					"cookie": [],
+					"body": "{\r\n    \"Message\": \"Login successful\",\r\n    \"Access token\": \"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJmcmVzaCI6ZmFsc2UsImlhdCI6MTY4MTU5NDAzNywianRpIjoiMDI5OTliZjQtNTI0NC00OWY3LTg1NGQtNTE5OThkZTIwMGVhIiwidHlwZSI6ImFjY2VzcyIsInN1YiI6IkFuZHJlczIiLCJuYmYiOjE2ODE1OTQwMzcsImV4cCI6MTY4MTU5NDkzN30.0mnQsqD8KZobIMGPfcwcmukM0svw_hTLbWAh-wvwCso\"\r\n}"
+				}
+			]
+		},
+		{
+			"name": "Create tasks",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJmcmVzaCI6ZmFsc2UsImlhdCI6MTY4MTU5NDAzNywianRpIjoiMDI5OTliZjQtNTI0NC00OWY3LTg1NGQtNTE5OThkZTIwMGVhIiwidHlwZSI6ImFjY2VzcyIsInN1YiI6IkFuZHJlczIiLCJuYmYiOjE2ODE1OTQwMzcsImV4cCI6MTY4MTU5NDkzN30.0mnQsqD8KZobIMGPfcwcmukM0svw_hTLbWAh-wvwCso",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "file",
+							"type": "file",
+							"src": "/C:/Users/USER/Escritorio/DesarrolloSwNube/traditional-environment/cloud_conversion_tool/files/Boy - King Gnu 2.mscz"
+						},
+						{
+							"key": "newFormat",
+							"value": "zip",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "localhost:5000/api/tasks",
+					"host": [
+						"localhost"
+					],
+					"port": "5000",
+					"path": [
+						"api",
+						"tasks"
+					]
+				}
+			},
+			"response": [
+				{
+					"name": "Create tasks",
+					"originalRequest": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJmcmVzaCI6ZmFsc2UsImlhdCI6MTY4MTU5MDE5MiwianRpIjoiZjIwNmQwMDctOGMxMy00MjQzLWI3MDMtMzUwNWY3ZmVlMGY3IiwidHlwZSI6ImFjY2VzcyIsInN1YiI6IkFuZHJlczIiLCJuYmYiOjE2ODE1OTAxOTIsImV4cCI6MTY4MTU5MTA5Mn0.Tk376lA25bjEYSj498LU9E5NNwgugr0xEo7oz66UbpY",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "file",
+									"type": "file",
+									"src": "/C:/Users/USER/Escritorio/DesarrolloSwNube/traditional-environment/cloud_conversion_tool/files/Boy - King Gnu 2.mscz"
+								},
+								{
+									"key": "newFormat",
+									"value": "zip",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "localhost:5000/api/tasks",
+							"host": [
+								"localhost"
+							],
+							"port": "5000",
+							"path": [
+								"api",
+								"tasks"
+							]
+						}
+					},
+					"_postman_previewlanguage": null,
+					"header": null,
+					"cookie": [],
+					"body": "{\r\n    \"time_stamp\": \"2023-04-15T21:29:45.822579\",\r\n    \"status\": {\r\n        \"llave\": \"UPLOADED\",\r\n        \"valor\": 1\r\n    },\r\n    \"id\": 2,\r\n    \"file_name\": \"Boy - King Gnu 2.mscz\",\r\n    \"new_format\": \"zip\"\r\n}"
+				}
+			]
+		},
+		{
+			"name": "Get task",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJmcmVzaCI6ZmFsc2UsImlhdCI6MTY4MTU5NDAzNywianRpIjoiMDI5OTliZjQtNTI0NC00OWY3LTg1NGQtNTE5OThkZTIwMGVhIiwidHlwZSI6ImFjY2VzcyIsInN1YiI6IkFuZHJlczIiLCJuYmYiOjE2ODE1OTQwMzcsImV4cCI6MTY4MTU5NDkzN30.0mnQsqD8KZobIMGPfcwcmukM0svw_hTLbWAh-wvwCso",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"fileName\":\"ejemplo\",\r\n    \"newFormat\":\"ejemplo\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:5000/api/tasks",
+					"host": [
+						"localhost"
+					],
+					"port": "5000",
+					"path": [
+						"api",
+						"tasks"
+					]
+				}
+			},
+			"response": [
+				{
+					"name": "Get task",
+					"originalRequest": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJmcmVzaCI6ZmFsc2UsImlhdCI6MTY4MTU5MTE4OCwianRpIjoiNjU2MzE2NDYtNzNiOC00MjY3LWJjN2EtMGU5MTlhMTcwN2Q1IiwidHlwZSI6ImFjY2VzcyIsInN1YiI6IkFuZHJlczIiLCJuYmYiOjE2ODE1OTExODgsImV4cCI6MTY4MTU5MjA4OH0.jHvdF5vqwRge1URyRQ00BIxYEERrOZb4-_lahxQj47M",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"fileName\":\"ejemplo\",\r\n    \"newFormat\":\"ejemplo\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:5000/api/tasks",
+							"host": [
+								"localhost"
+							],
+							"port": "5000",
+							"path": [
+								"api",
+								"tasks"
+							]
+						}
+					},
+					"_postman_previewlanguage": null,
+					"header": null,
+					"cookie": [],
+					"body": "[\r\n    {\r\n        \"time_stamp\": \"2023-04-15T20:16:31.482146\",\r\n        \"status\": {\r\n            \"llave\": \"UPLOADED\",\r\n            \"valor\": 1\r\n        },\r\n        \"id\": 1,\r\n        \"file_name\": \"Boy - King Gnu.mscz\",\r\n        \"new_format\": \"tarbz2\"\r\n    },\r\n    {\r\n        \"time_stamp\": \"2023-04-15T21:29:45.822579\",\r\n        \"status\": {\r\n            \"llave\": \"UPLOADED\",\r\n            \"valor\": 1\r\n        },\r\n        \"id\": 2,\r\n        \"file_name\": \"Boy - King Gnu 2.mscz\",\r\n        \"new_format\": \"zip\"\r\n    }\r\n]"
+				}
+			]
+		},
+		{
+			"name": "Get task 2",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJmcmVzaCI6ZmFsc2UsImlhdCI6MTY4MTU5NDAzNywianRpIjoiMDI5OTliZjQtNTI0NC00OWY3LTg1NGQtNTE5OThkZTIwMGVhIiwidHlwZSI6ImFjY2VzcyIsInN1YiI6IkFuZHJlczIiLCJuYmYiOjE2ODE1OTQwMzcsImV4cCI6MTY4MTU5NDkzN30.0mnQsqD8KZobIMGPfcwcmukM0svw_hTLbWAh-wvwCso",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "localhost:5000/api/task/2",
+					"host": [
+						"localhost"
+					],
+					"port": "5000",
+					"path": [
+						"api",
+						"task",
+						"2"
+					]
+				}
+			},
+			"response": [
+				{
+					"name": "Get task 2",
+					"originalRequest": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJmcmVzaCI6ZmFsc2UsImlhdCI6MTY4MTU3ODU3MiwianRpIjoiNmVmOWJiMjQtZDBlZC00ZTU4LTliNWEtNmQxMWFiMTBiNzNlIiwidHlwZSI6ImFjY2VzcyIsInN1YiI6IkFuZHJlczIiLCJuYmYiOjE2ODE1Nzg1NzIsImV4cCI6MTY4MTU3OTQ3Mn0.LWvIiCNAjpfwwDftlTrBpQKL2WKgMMzyM_YCCqWT71c",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "localhost:5000/api/task/2",
+							"host": [
+								"localhost"
+							],
+							"port": "5000",
+							"path": [
+								"api",
+								"task",
+								"2"
+							]
+						}
+					},
+					"_postman_previewlanguage": null,
+					"header": null,
+					"cookie": [],
+					"body": "{\r\n    \"time_stamp\": \"2023-04-15T21:29:45.822579\",\r\n    \"status\": {\r\n        \"llave\": \"UPLOADED\",\r\n        \"valor\": 1\r\n    },\r\n    \"id\": 2,\r\n    \"file_name\": \"Boy - King Gnu 2.mscz\",\r\n    \"new_format\": \"zip\"\r\n}"
+				}
+			]
+		},
+		{
+			"name": "Delete task",
+			"request": {
+				"method": "DELETE",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJmcmVzaCI6ZmFsc2UsImlhdCI6MTY4MTU5NDAzNywianRpIjoiMDI5OTliZjQtNTI0NC00OWY3LTg1NGQtNTE5OThkZTIwMGVhIiwidHlwZSI6ImFjY2VzcyIsInN1YiI6IkFuZHJlczIiLCJuYmYiOjE2ODE1OTQwMzcsImV4cCI6MTY4MTU5NDkzN30.0mnQsqD8KZobIMGPfcwcmukM0svw_hTLbWAh-wvwCso",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "formdata",
+					"formdata": []
+				},
+				"url": {
+					"raw": "localhost:5000/api/task/1",
+					"host": [
+						"localhost"
+					],
+					"port": "5000",
+					"path": [
+						"api",
+						"task",
+						"1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get files by name",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJmcmVzaCI6ZmFsc2UsImlhdCI6MTY4MTU5NDAzNywianRpIjoiMDI5OTliZjQtNTI0NC00OWY3LTg1NGQtNTE5OThkZTIwMGVhIiwidHlwZSI6ImFjY2VzcyIsInN1YiI6IkFuZHJlczIiLCJuYmYiOjE2ODE1OTQwMzcsImV4cCI6MTY4MTU5NDkzN30.0mnQsqD8KZobIMGPfcwcmukM0svw_hTLbWAh-wvwCso",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "localhost:5000/api/files/Boy - King Gnu 2",
+					"host": [
+						"localhost"
+					],
+					"port": "5000",
+					"path": [
+						"api",
+						"files",
+						"Boy - King Gnu 2"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
