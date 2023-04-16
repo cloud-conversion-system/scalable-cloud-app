@@ -7,11 +7,11 @@ import py7zr
 import tarfile
 import os
 from celery import Celery
-
+from 
 UPLOAD_FOLDER = './files'
 
 task_schema = TaskSchema()
-app = Celery( 'tasks', broker = 'redis://34.207.85.246:6379/0' )
+app = Celery( 'tasks', broker = 'redis://localhost:6379' )
 
 
 class VistaSignUp(Resource):
@@ -52,7 +52,7 @@ class ViewTasks(Resource):
         new_task = Task(file_name=file_name, new_format=new_format)
         db.session.add(new_task)
         db.session.commit()
-        compress_file.delay(file_name, new_format)
+        compress_file.delay(file_name, new_format, new_task.id)
         return task_schema.dump(new_task)
 
 
@@ -81,8 +81,8 @@ class ViewFile(Resource):
         return send_from_directory(directory=UPLOAD_FOLDER, filename=filename, as_attachment=True)
 
 @app.task
-def compress_file(file_name, algorithm):
-    file_path = os.path.join(UPLOAD_FOLDER, file_name)
+def compress_file(file_name, algorithm, task_id):
+    file_path = os.path.join('cloud_conversion_tool/files', file_name)
     if algorithm == 'zip':
         with zipfile.ZipFile(file_path+'.zip', 'w') as zipf:
             zipf.write(file_path, arcname=os.path.basename(file_path))
@@ -99,4 +99,3 @@ def compress_file(file_name, algorithm):
         with tarfile.open(file_path+'.tar.bz2', 'w:bz2') as tbzf:
             tbzf.add(file_path, arcname=os.path.basename(file_path))
         return f'El archivo {file_path} ha sido comprimido con TAR.BZ2'
-
