@@ -13,3 +13,7 @@ py7zr==0.20.5
 psycopg2_binary
 flask_restful
 flask-jwt-extended==4.2.1
+Celery
+redis
+wheel
+gunicorn

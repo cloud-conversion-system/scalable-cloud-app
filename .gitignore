@@ -349,3 +349,6 @@ MigrationBackup/
 
 # Ionide (cross platform F# VS Code tools) working folder
 .ionide/
+
+venv
+cloud_conversion_tool/collections/cloud_conversion_tool.postman_collection.json

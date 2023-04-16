@@ -2,14 +2,13 @@ from flask_restful import Resource
 from ..modelos import db, User, Task, TaskSchema
 from flask import request, send_from_directory
 from flask_jwt_extended import jwt_required, create_access_token
-import zipfile
-import py7zr
-import tarfile
+from ..celery import compress_file
 import os
 
 UPLOAD_FOLDER = './files'
 
 task_schema = TaskSchema()
+
 
 
 class VistaSignUp(Resource):
@@ -50,8 +49,7 @@ class ViewTasks(Resource):
         new_task = Task(file_name=file_name, new_format=new_format)
         db.session.add(new_task)
         db.session.commit()
-        # TODO: queue tasks and change status to processed
-        compress_file(file_name, new_format)
+        compress_file.delay(file_name, new_format, new_task.id)
         return task_schema.dump(new_task)
 
 
@@ -78,24 +76,4 @@ class ViewFile(Resource):
             if name==id_file:
                 filename= fileName
         return send_from_directory(directory=UPLOAD_FOLDER, filename=filename, as_attachment=True)
-
-
-def compress_file(file_name, algorithm):
-    file_path = os.path.join(UPLOAD_FOLDER, file_name)
-    if algorithm == 'zip':
-        with zipfile.ZipFile(file_path+'.zip', 'w') as zipf:
-            zipf.write(file_path, arcname=os.path.basename(file_path))
-        return f'El archivo {file_path} ha sido comprimido con ZIP'
-    elif algorithm == '7z':
-        with py7zr.SevenZipFile(file_path+'.7z', 'w') as szf:
-            szf.write(file_path, arcname=os.path.basename(file_path))
-        return f'El archivo {file_path} ha sido comprimido con 7Z'
-    elif algorithm == 'targz':
-        with tarfile.open(file_path+'.tar.gz', 'w:gz') as tgzf:
-            tgzf.add(file_path, arcname=os.path.basename(file_path))
-        return f'El archivo {file_path} ha sido comprimido con TAR.GZ'
-    elif algorithm == 'tarbz2':
-        with tarfile.open(file_path+'.tar.bz2', 'w:bz2') as tbzf:
-            tbzf.add(file_path, arcname=os.path.basename(file_path))
-        return f'El archivo {file_path} ha sido comprimido con TAR.BZ2'
 
