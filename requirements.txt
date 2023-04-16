@@ -15,3 +15,5 @@ flask_restful
 flask-jwt-extended==4.2.1
 Celery
 redis
+wheel
+gunicorn
