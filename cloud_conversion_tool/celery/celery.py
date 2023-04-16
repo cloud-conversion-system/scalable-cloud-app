@@ -1,5 +1,5 @@
 from celery import Celery 
-from ..modelos import Task, TaskSchema
+from ..modelos import Task, TaskSchema, Status
 import zipfile
 import py7zr
 import tarfile
@@ -39,6 +39,6 @@ def compress_file(file_name, algorithm, task_id):
     
 def update_task(task_id):
     task = db_session.query(Task).filter_by(id=task_id).first()
-    task.status = 2
+    task.status = Status.PROCESSED
     db_session.commit()
     task_schema.dump(task)
