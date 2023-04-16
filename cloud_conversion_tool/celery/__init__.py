@@ -1,1 +1,1 @@
-from celery import *
+from .celery import *
