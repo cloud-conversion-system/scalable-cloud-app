@@ -1,4 +1,5 @@
-from celery import Celery 
+from celery import Celery
+from celery.schedules import crontab
 from ..modelos import Task, TaskSchema, Status
 import zipfile
 import py7zr
@@ -12,6 +13,20 @@ engine = create_engine('postgresql://postgres:password@ccs-db.cwdug9pwvom0.us-ea
 app = Celery( 'tasks', broker = 'redis://localhost:6379' )
 db_session = scoped_session(sessionmaker(autocommit=False, autoflush=False, bind=engine))
 task_schema = TaskSchema()
+
+@app.on_after_configure.connect
+def setup_periodic_tasks(sender, **kwargs):
+    # Checks database every monday morning to see if there are any tasks to be processed
+    sender.add_periodic_task(
+        crontab(minute = 0, hour = '*/3'),
+
+    )
+
+@app.task
+def check_database():
+    tasks = db_session.query(Task).filter_by(status=Status.UPLOADED).all()
+    for task in tasks:
+        compress_file.delay(task.file_name, task.new_format, task.id)
 
 @app.task
 def compress_file(file_name, algorithm, task_id):
