@@ -19,7 +19,7 @@ def setup_periodic_tasks(sender, **kwargs):
     # Checks database every monday morning to see if there are any tasks to be processed
     sender.add_periodic_task(
         crontab(minute = 0, hour = '*/3'),
-
+        check_database.s()
     )
 
 @app.task
