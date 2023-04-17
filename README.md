@@ -24,8 +24,15 @@ Requerimientos:
 ```sudo systemctl enable redis-server.service```
 ```redis-server```
 3. Dirigase al directorio del proyecto y digite los siguientes comandos en consola:
-```celery -A cloud_conversion_tool.celery.celery worker -l info```
-4. Ejecute el servidor de flask en otra consola.
+```celery -A cloud_conversion_tool.celery_script worker -l info```
+1. Ejecute el servidor de Flask en otra consola.
+
+### Despliegue con Docker
+
+Alternativamente, puede utilizar Docker para inicializar la aplicación con los siguientes comandos:
+
+1. `docker pull --platform linux/x86_64 ghcr.io/cloud-conversion-system/traditional-environment:main`
+2. `docker run --platform linux/amd64 -p 80:80 -i ghcr.io/cloud-conversion-system/traditional-environment:main`
 
 ## License
 
