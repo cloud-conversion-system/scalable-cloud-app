@@ -10,7 +10,6 @@ UPLOAD_FOLDER = './files'
 task_schema = TaskSchema()
 
 
-
 class VistaSignUp(Resource):
     def post(self):
         new_user = User(
@@ -70,10 +69,9 @@ class ViewFile(Resource):
     @jwt_required()
     def get(self, id_file):
         nombres_archivos = os.listdir(os.path.join(UPLOAD_FOLDER))
-        filename=""
+        filename = ""
         for fileName in nombres_archivos:
             name = fileName.split(".")[0]
-            if name==id_file:
-                filename= fileName
+            if name == id_file:
+                filename = fileName
         return send_from_directory(directory=UPLOAD_FOLDER, filename=filename, as_attachment=True)
-
