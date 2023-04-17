@@ -2,7 +2,7 @@ from flask_restful import Resource
 from ..modelos import db, User, Task, TaskSchema
 from flask import request, send_from_directory
 from flask_jwt_extended import jwt_required, create_access_token
-from ..celery import compress_file
+from ..celery_script import compress_file
 import os
 
 UPLOAD_FOLDER = './files'
