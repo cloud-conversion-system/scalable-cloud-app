@@ -34,10 +34,22 @@ class VistaLogIn(Resource):
 
 
 class ViewTasks(Resource):
-    # TODO: missing add query params
     @jwt_required()
     def get(self):
-        return [task_schema.dump(t) for t in Task.query.all()]
+        max_results = request.args.get('max')
+        order_by = request.args.get('order')
+
+        if max_results:
+            tasks = Task.query.limit(int(max_results)).all()
+        else:
+            tasks = Task.query.all()
+
+        if order_by == '1':
+            tasks = sorted(tasks, key=lambda x: x.id, reverse=True)
+        else:
+            tasks = sorted(tasks, key=lambda x: x.id)
+
+        return [task_schema.dump(t) for t in tasks]
 
     @jwt_required()
     def post(self):
