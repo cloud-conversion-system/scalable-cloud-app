@@ -6,7 +6,7 @@ This application allows compressing files using different utilities and/or algor
 
 ## Video Explicativo
 
-[YouTube Link]()
+[YouTube Link](https://youtu.be/ej0_3Xr8v3E)
 
 ## ¿Cómo desplegar la aplicación?
 
