@@ -9,6 +9,4 @@ RUN pip3 install -r requirements.txt
 
 COPY . .
 
-EXPOSE 6379
-
-CMD service redis-server start && celery -A cloud_conversion_tool.celery_script worker -l info
+CMD service redis-server start && celery -A cloud_conversion_tool.celery_script beat -l info & celery -A cloud_conversion_tool.celery_script worker -l info

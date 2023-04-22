@@ -8,6 +8,10 @@ This application allows compressing files using different utilities and/or algor
 
 TODO: [YouTube Link]()
 
+## Documentación del API
+
+[Postman Documentation](https://documenter.getpostman.com/view/11708390/2s93Y5NeWB)
+
 ## ¿Cómo desplegar la aplicación en GCP?
 
 ### Despliegue con Docker
@@ -21,7 +25,7 @@ En primer lugar, cree 2 instancias de VM utilizando Compute Engine y en una de e
 ```bash
 sudo snap install docker
 sudo docker pull --platform linux/x86_64 ghcr.io/cloud-conversion-system/public-cloud-worker:main
-sudo docker run --platform linux/amd64 -p 6379:6379 ghcr.io/cloud-conversion-system/public-cloud-worker:main
+sudo docker run --platform linux/amd64 ghcr.io/cloud-conversion-system/public-cloud-worker:main
 ```
 
 #### Ejecución de la aplicación:
