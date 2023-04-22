@@ -1,6 +1,6 @@
-# Traditional Environment
+# Public Cloud
 
-REST Backend + Asynchronous Processing Layer. Scalable web applications in a traditional environment.
+REST Backend + Asynchronous Processing Layer. Basic Deployment in the Public Cloud.
 
 This application allows compressing files using different utilities and/or algorithms: ZIP, 7Z, TAR.GZ, TAR.BZ2
 

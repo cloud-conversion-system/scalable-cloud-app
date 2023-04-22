@@ -17,8 +17,10 @@ jobs:
       fail-fast: false
       matrix:
         include:
-          - dockerfile: ./Dockerfile
-            image: ghcr.io/cloud-conversion-system/traditional-environment
+          - dockerfile: ./app.Dockerfile
+            image: ghcr.io/cloud-conversion-system/public-cloud-app
+          - dockerfile: ./worker.Dockerfile
+            image: ghcr.io/cloud-conversion-system/public-cloud-worker
     permissions:
       contents: read
       packages: write
