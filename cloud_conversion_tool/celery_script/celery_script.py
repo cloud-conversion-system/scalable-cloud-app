@@ -18,7 +18,7 @@ task_schema = TaskSchema()
 
 app.conf.beat_schedule = {
     "run-me-every-ten-seconds":{
-        "task": "tasks.check_database",
+        "task": "check_database",
         "schedule": 10.0
     }
 }
@@ -27,7 +27,7 @@ app.conf.beat_schedule = {
 def check_database():
     tasks = db_session.query(Task).filter_by(status=Status.UPLOADED).all()
     for task in tasks:
-        compress_file.delay(task.file_name, task.new_format, task.id)
+        compress_file(task.file_name, task.new_format, task.id)
 
 
 @app.task
