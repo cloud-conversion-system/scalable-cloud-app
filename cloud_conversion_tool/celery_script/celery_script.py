@@ -11,7 +11,7 @@ from sqlalchemy.orm import sessionmaker
 
 engine = create_engine(
     'postgresql://postgres:password@10.91.16.3/cloud_conversion_tool')
-app = Celery('tasks', broker='redis://localhost:6379')
+app = Celery('tasker', include=['tasker.tasks'], broker='redis://localhost:6379')
 db_session = scoped_session(sessionmaker(
     autocommit=False, autoflush=False, bind=engine))
 task_schema = TaskSchema()
