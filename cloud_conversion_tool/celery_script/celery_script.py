@@ -8,8 +8,6 @@ import os
 from sqlalchemy import create_engine
 from sqlalchemy.orm import scoped_session
 from sqlalchemy.orm import sessionmaker
-from celery.signals import celeryd_after_setup
-from sqlalchemy import event
 
 engine = create_engine(
     'postgresql://postgres:password@10.91.16.3/cloud_conversion_tool')
@@ -18,24 +16,12 @@ db_session = scoped_session(sessionmaker(
     autocommit=False, autoflush=False, bind=engine))
 task_schema = TaskSchema()
 
-
-@celeryd_after_setup.connect
-def setup_db_check(sender, **kwargs):
-    @event.listens_for(Task, 'after_insert')
-    @event.listens_for(Task, 'after_update')
-    def task_changed(mapper, connection, target):
-        if target.status == Status.UPLOADED:
-            compress_file.delay(target.file_name, target.new_format, target.id)
-
-
-@app.on_after_configure.connect
-def setup_periodic_tasks(sender, **kwargs):
-    # Checks database every monday morning to see if there are any tasks to be processed
-    sender.add_periodic_task(
-        crontab(minute=0, hour='*/3'),
-        check_database.s()
-    )
-
+app.conf.beat_schedule = {
+    "run-me-every-ten-seconds":{
+        "task": "tasks.check_database",
+        "schedule": 10.0
+    }
+}
 
 @app.task
 def check_database():
