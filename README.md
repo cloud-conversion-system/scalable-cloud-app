@@ -21,7 +21,7 @@ En primer lugar, cree 2 instancias de VM utilizando Compute Engine y en una de e
 ```bash
 sudo snap install docker
 sudo docker pull --platform linux/x86_64 ghcr.io/cloud-conversion-system/public-cloud-worker:main
-sudo docker run --platform linux/amd64 -i ghcr.io/cloud-conversion-system/public-cloud-worker:main
+sudo docker run --platform linux/amd64 -p 6379:6379 ghcr.io/cloud-conversion-system/public-cloud-worker:main
 ```
 
 #### Ejecución de la aplicación:
@@ -29,7 +29,7 @@ sudo docker run --platform linux/amd64 -i ghcr.io/cloud-conversion-system/public
 ```bash
 sudo snap install docker
 sudo docker pull --platform linux/x86_64 ghcr.io/cloud-conversion-system/public-cloud-app:main
-sudo docker run --platform linux/amd64 -p 80:80 -i ghcr.io/cloud-conversion-system/public-cloud-app:main
+sudo docker run --platform linux/amd64 -p 80:80 ghcr.io/cloud-conversion-system/public-cloud-app:main
 ```
 
 ## License
