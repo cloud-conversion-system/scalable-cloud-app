@@ -18,7 +18,7 @@ task_schema = TaskSchema()
 
 app.conf.beat_schedule = {
     "run-me-every-ten-seconds":{
-        "task": "tasks.check_database",
+        "task": "check_database",
         "schedule": 10.0
     }
 }
