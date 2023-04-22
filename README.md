@@ -14,6 +14,17 @@ TODO: [YouTube Link]()
 
 ## ¿Cómo desplegar la aplicación en GCP?
 
+### Despliegue de la base de datos
+
+En primer lugar cree una instancia de Cloud SQL en la misma región en la que creó las instancias de Compute Engine. Asegurese que utilice PostgreSQL 14.  
+
+Luego, chequee la opción de asignar IP privada, esta es la que va a utilizar para hacer llamado en la base de datos.  
+Verifique que la maquina pertenezca a la misma VPC que las demás maquinas desplegadas.
+
+Luego de haber chequeado la opción, en caso de que su proyecto no tenga activadas las APIs necesarias, GCP lo redirigirá a un tutorial para activarlas y asignar correctamente esa IP privada a la VPC correspondiente.  
+
+Una vez la instancia se haya creado, reemplace la IP de la base de datos contenida en los archivos ```celery_script/tasks``` y ```__init__.py```. Solo debe reemplazar la parte contenida después del @ y antes del /.
+
 ### Despliegue con Docker
 
 Puede utilizar Docker para inicializar la aplicación en GCP siguiendo las siguientes instrucciones:
