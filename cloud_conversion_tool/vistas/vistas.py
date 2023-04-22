@@ -2,7 +2,6 @@ from flask_restful import Resource
 from ..modelos import db, User, Task, TaskSchema
 from flask import request, send_from_directory
 from flask_jwt_extended import jwt_required, create_access_token
-from ..celery_script import compress_file
 import os
 
 UPLOAD_FOLDER = './files'
@@ -60,7 +59,6 @@ class ViewTasks(Resource):
         new_task = Task(file_name=file_name, new_format=new_format)
         db.session.add(new_task)
         db.session.commit()
-        compress_file.delay(file_name, new_format, new_task.id)
         return task_schema.dump(new_task)
 
 

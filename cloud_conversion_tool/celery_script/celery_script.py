@@ -8,13 +8,24 @@ import os
 from sqlalchemy import create_engine
 from sqlalchemy.orm import scoped_session
 from sqlalchemy.orm import sessionmaker
+from celery.signals import celeryd_after_setup
+from sqlalchemy import event
 
 engine = create_engine(
     'postgresql://postgres:password@10.91.16.3/cloud_conversion_tool')
-app = Celery('tasks', broker='redis://10.128.0.3:6379')
+app = Celery('tasks', broker='redis://localhost:6379')
 db_session = scoped_session(sessionmaker(
     autocommit=False, autoflush=False, bind=engine))
 task_schema = TaskSchema()
+
+
+@celeryd_after_setup.connect
+def setup_db_check(sender, **kwargs):
+    @event.listens_for(Task, 'after_insert')
+    @event.listens_for(Task, 'after_update')
+    def task_changed(mapper, connection, target):
+        if target.status == Status.UPLOADED:
+            compress_file.delay(target.file_name, target.new_format, target.id)
 
 
 @app.on_after_configure.connect
