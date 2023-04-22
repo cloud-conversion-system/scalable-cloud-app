@@ -25,6 +25,14 @@ Luego de haber chequeado la opción, en caso de que su proyecto no tenga activad
 
 Una vez la instancia se haya creado, reemplace la IP de la base de datos contenida en los archivos ```celery_script/tasks``` y ```__init__.py```. Solo debe reemplazar la parte contenida después del @ y antes del /.
 
+### Despliegue del sistema de archivos de red (NFS)
+
+Para empezar, cree una instancia de VM utilizando Compute Engine, asegurándome que sigan las mismas especificaciones que las máquinas virtuales que representan el worker y la aplicacion.
+
+Seguidamente, en esta instancia instalé el nfs-kernel-server que permite establecer la carpeta compartida y todas las configuraciones de esta. Para ello, cree un directorio (el que se va a compartir) y modifiqué el archivo /etc/exports/ en el cual se especifica el directorio compartido, que maquinas van a poder acceder (ips), los permisos (rw), entre otras. Por último, reinicié el este servicio.
+
+En las VM del worker y de la app se configuraron un par de parámetros extra para realizar esta conexión. A la hora de hacer el docker.run, se debió agregar el condigo adicional “-v /mnt/nfs/cloud-conversion-tool/files:/python-docker/cloud_conversion_tool/files” que vincula la carpeta existente dentro de la instancia NFS y una carpeta de interés dentro de las instancias worker y app. De esta manera, lo que se suba en esta carpeta va ser visible y se van a poder descargar los contenidos en las demás. 
+
 ### Despliegue con Docker
 
 Puede utilizar Docker para inicializar la aplicación en GCP siguiendo las siguientes instrucciones:
