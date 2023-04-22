@@ -10,7 +10,7 @@ from sqlalchemy.orm import scoped_session
 from sqlalchemy.orm import sessionmaker
 
 engine = create_engine(
-    'postgresql://postgres:password@ccs-db.cwdug9pwvom0.us-east-1.rds.amazonaws.com/cloud_conversion_tool')
+    'postgresql://postgres:password@10.91.16.3/cloud_conversion_tool')
 app = Celery('tasks', broker='redis://localhost:6379')
 db_session = scoped_session(sessionmaker(
     autocommit=False, autoflush=False, bind=engine))
