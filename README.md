@@ -8,6 +8,10 @@ This application allows compressing files using different utilities and/or algor
 
 TODO: [YouTube Link]()
 
+## Documentación del API
+
+[Postman Documentation](https://documenter.getpostman.com/view/11708390/2s93Y5NeWB)
+
 ## ¿Cómo desplegar la aplicación en GCP?
 
 ### Despliegue con Docker
