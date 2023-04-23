@@ -55,6 +55,7 @@ class ViewTasks(Resource):
         file = request.files['file']
         file_name = file.filename
         file.save(os.path.join(UPLOAD_FOLDER, file_name))
+        file.close()
         new_format = request.form.get("newFormat")
         new_task = Task(file_name=file_name, new_format=new_format)
         db.session.add(new_task)
