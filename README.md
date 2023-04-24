@@ -6,7 +6,7 @@ This application allows compressing files using different utilities and/or algor
 
 ## Video Explicativo
 
-[YouTube Link]()
+[YouTube Link](https://youtu.be/bWWDLfnUB4c)
 
 ## Documentación del API
 
@@ -43,7 +43,7 @@ En primer lugar, cree 2 instancias de VM utilizando Compute Engine y en una de e
 
 En la instancia del worker y la aplicación deberá vincular el sistema de archivos de red para la escritura en el directorio compartido.
 
-```
+```bash
 sudo mount <internal-file-server-ip>:/user-files /mnt/nfs
 ```
 
