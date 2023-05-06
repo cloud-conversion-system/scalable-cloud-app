@@ -55,9 +55,11 @@ class ViewTasks(Resource):
     def post(self):
         file = request.files['file']
         file_name = file.filename
-        file.save(os.path.join(UPLOAD_FOLDER, file_name))  
+        file.save(os.path.join(UPLOAD_FOLDER, file_name))
         file.close()
-        gcsManager.uploadFile(UPLOAD_FOLDER+'/'+file_name, file_name) #Uploading the file to the bucket
+        # Uploading the file to the bucket
+        gcsManager.uploadFile(UPLOAD_FOLDER + '/' + file_name, file_name)
+        os.remove(os.path.join(UPLOAD_FOLDER, file_name))
         new_format = request.form.get("newFormat")
         new_task = Task(file_name=file_name, new_format=new_format)
         db.session.add(new_task)

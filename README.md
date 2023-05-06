@@ -64,6 +64,18 @@ sudo docker pull --platform linux/x86_64 ghcr.io/cloud-conversion-system/public-
 sudo docker run --platform linux/amd64 -p 80:80 -v /mnt/nfs/cloud-conversion-tool/files:/python-docker/cloud_conversion_tool/files ghcr.io/cloud-conversion-system/public-cloud-app:main
 ```
 
+### Crea una plantilla de instancias para la ejecución de la aplicación.
+
+- Selecciona máquinas de tipo N1 f1-micro
+- Disco de arranque Container-Optimized OS
+- Etiqueta de red http-server para permitir conexiones por el puerto 80
+- Añade lo siguiente a automatización en "secuencia de comandos de inicio":
+```
+#!bin/bash
+docker pull ghcr.io/cloud-conversion-system/public-cloud-app:main
+
+- Habilitar monitoring y logging
+
 ## Documentación del API
 
 [Postman Documentation](https://documenter.getpostman.com/view/11708390/2s93Y5NeWB)
