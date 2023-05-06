@@ -17,18 +17,20 @@ db_session = scoped_session(sessionmaker(
     autocommit=False, autoflush=False, bind=engine))
 task_schema = TaskSchema()
 
+
 @app.task
 def check_database():
     tasks = db_session.query(Task).filter_by(status=Status.UPLOADED).all()
     for task in tasks:
         compress_file(task.file_name, task.new_format, task.id)
 
+
 def compress_file(file_name, algorithm, task_id):
-    file_path = os.path.join('cloud_conversion_tool/files', file_name) 
+    file_path = os.path.join('cloud_conversion_tool/files', file_name)
     if algorithm == 'zip':
         with zipfile.ZipFile(file_path+'.zip', 'w') as zipf:
             zipf.write(file_path, arcname=os.path.basename(file_path))
-            
+
         gcsManager.uploadFile(file_name, file_path)
         os.remove(file_path)
         update_task(task_id)
