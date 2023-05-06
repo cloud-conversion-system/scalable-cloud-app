@@ -1,20 +1,17 @@
 # Public Cloud
 
-REST Backend + Asynchronous Processing Layer. Basic deployment in the public cloud.
+REST Backend + Asynchronous Processing Layer. Design and implementation of a scalable web application in public cloud.
 
 This application allows compressing files using different utilities and/or algorithms: ZIP, 7Z, TAR.GZ, TAR.BZ2
 
 ## Video Explicativo
+### TODO: Add video
 
-[YouTube Link](https://youtu.be/bWWDLfnUB4c)
-
-## Documentación del API
-
-[Postman Documentation](https://documenter.getpostman.com/view/11708390/2s93Y5NeWB)
+[YouTube Link]()
 
 ## ¿Cómo desplegar la aplicación en GCP?
 
-### Despliegue de la base de datos
+### Despliegue de la base de datos - Cloud SQL
 
 En primer lugar cree una instancia de Cloud SQL en la misma región en la que creó las instancias de Compute Engine. Asegurese que utilice PostgreSQL 14.
 
@@ -26,6 +23,7 @@ Luego de haber chequeado la opción, en caso de que su proyecto no tenga activad
 Una vez la instancia se haya creado, reemplace la IP de la base de datos contenida en los archivos ```celery_script/tasks``` y ```__init__.py```. Solo debe reemplazar la parte contenida después del @ y antes del /.
 
 ### Despliegue del sistema de archivos de red (NFS)
+### TODO: Cloud Storage
 
 Para empezar, cree una instancia de VM utilizando Compute Engine, asegurándome que sigan las mismas especificaciones que las máquinas virtuales que representan el worker y la aplicacion.
 
@@ -40,6 +38,7 @@ Puede utilizar Docker para inicializar la aplicación en GCP siguiendo las sigui
 En primer lugar, cree 2 instancias de VM utilizando Compute Engine y en una de ellas ejecute el worker y en la otra la aplicación. La ejecución de cada componente la podrá realizar de la siguiente forma:
 
 #### Vincular NFS con el worker y la aplicación
+### TODO: Delete NFS
 
 En la instancia del worker y la aplicación deberá vincular el sistema de archivos de red para la escritura en el directorio compartido.
 
@@ -48,6 +47,7 @@ sudo mount <internal-file-server-ip>:/user-files /mnt/nfs
 ```
 
 #### Ejecución del worker
+### TODO: Delete NFS
 
 ```bash
 sudo snap install docker
@@ -56,12 +56,17 @@ sudo docker run --platform linux/amd64 -v /mnt/nfs/cloud-conversion-tool/files:/
 ```
 
 #### Ejecución de la aplicación:
+### TODO: Delete NFS
 
 ```bash
 sudo snap install docker
 sudo docker pull --platform linux/x86_64 ghcr.io/cloud-conversion-system/public-cloud-app:main
 sudo docker run --platform linux/amd64 -p 80:80 -v /mnt/nfs/cloud-conversion-tool/files:/python-docker/cloud_conversion_tool/files ghcr.io/cloud-conversion-system/public-cloud-app:main
 ```
+
+## Documentación del API
+
+[Postman Documentation](https://documenter.getpostman.com/view/11708390/2s93Y5NeWB)
 
 ## License
 
