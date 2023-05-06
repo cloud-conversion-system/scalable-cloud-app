@@ -70,22 +70,12 @@ sudo docker run --platform linux/amd64 -p 80:80 -v /mnt/nfs/cloud-conversion-too
 - Disco de arranque Container-Optimized OS
 - Etiqueta de red http-server para permitir conexiones por el puerto 80
 - Añade lo siguiente a automatización en "secuencia de comandos de inicio":
+
 ```
 #!bin/bash
 sudo rm /var/credentials/google-credentials.json
 sudo touch /var/credentials/google-credentials.json
-echo '{
-  "type": "service_account",
-  "project_id": "cloud-conversion-system",
-  "private_key_id": "a7a48df62c83e5d67cbbf2f4c649df0219bdd9b9",
-  "private_key": "-----BEGIN PRIVATE KEY-----\nMIIEvgIBADANBgkqhkiG9w0BAQEFAASCBKgwggSkAgEAAoIBAQDOqzHWxzSjOTmx\n6LjHiv0TnQIVdJ7dRxeDztIKX6UYPnihv6niBERsfG7R4xE0dn3/3CsuCqChqPvk\nbQAjU2rGfcLPol5WEZOxZeCuMR9xqTqgLOTBeI0DM1dO/vtLm2Se2p1CiBkENAzV\nYrwqf52Ee6RXDyz1DYGYRwR7Yh4S3tpbDnJyzagr0oQga3T3eFDL/lMkrJjhpJ0O\n4aQNA1OQ3UVerZZwQZlxHA1AnKNL77AijD5sng8aFh8n9NesG+lLY8+gVfkHsAT4\n2LaxjrOgRZ/N6cpDD24UOOUHBgJuc3NdX6wk2HPwDjDipxTIfjJVzvWoLZW51+UX\nSVDpU119AgMBAAECggEAFKIU3LuQrscU0oVIhWuD7sRbI+c7wR3K5Dbu02hPJEeA\nZa2r+UuxxR77NWs1GYbG95d0nCkldl5Xn6ueOuimHWEK5Q3x2yfwFeL09o8i84cQ\nulMhF4vAkFQ84D8muZqvBgkPcEgEL14+9cLgxGFvSX3Kn4J9W43YpWpZsTPPitSU\n7h7fKqp8cm1CfKBmzn0+Y0GVoCXRORiYPxqtyY5gpgubJQEklgsI10XGmJ3C5ALk\nJyGdLnCIC8/6kLtesjRuMTL2TM2kegmlg/RHftX8/3cWFjLOSahcAsAVvBdGsQmy\n8eQ/TUQvKKa7wCpMUpwf8XPURqY3VzcL93y3bZ6o5QKBgQD3KgqNX3ClaaLa6S0R\nYmlI+TtCLjFRhHY+tg8GoZFhSkR5J/NtZ4N6hloX79tZEbg20UEv6nNxJO18iqGa\nwDdkY/VtWESfEMd/nmJlXsWbZsaIs4XtdAo3qhK2Sx1Bo4w4lactwFqtXU6lcl9h\n3BeJqA5mEs7NWJscIE4P8O8rywKBgQDWDo2bOWg8Rt+I5wBHiIlXstYgCWavIQNH\nFDLyZEdUlRK+zxJdpqtOSUzwLLTJ+2Oj9rnjRbp2qXMJpOEDWE4kq0nwMy1GuiQg\ngLIzn1X0NgzSRQqY/E19qI0Qe6AG2sXlJlvCD1+r21StK0Kh8kqfijIdUUWqFGEW\nLZ0KzpoC1wKBgFbOPCCEuYJOxHSP2lU1s/Z+GfLXWFjh5cmGlWZlzjJWLBBFGLh+\n121rzC6F/gqdL46JFZTniZ3eM04/Phykj4/Bj4vUqV0YPoiyrqodi9dVVDrkmg/Y\nZlJAeAvv+5l3ACNLZAiseuxSTfHLZnZvHxEopc3xoxH5oZhSPDhbDRTbAoGBAJc8\nGwJjkeicbkyMYN8pcVfby3tBCSKMoYMzmzc0cE0rMd5L8P7nxbp/AXPjMixOh7yN\nkhIn7rDt0ZArxKqXVkaEGq4xijihROsN4lmkppbvJSnei7lA8QLp9hiCL7MIGK9o\n5YV7VS3XvcDHgsFmrSCBBB1AkYaz9VA1E/JRu/BrAoGBAMDclmcp0IQUvYjPx4Ji\nOhfynrcExjHfY4famgWlqgnzAugHBgzXF+L5oKVEtqptI0cFukJeRynNrAMVR0tG\nzyP7QwbqPuY2r4xZjWj71L7bsbECUjstvN8RB/uNyTBs0pk6Swm9bGaNA/GC1QHx\n6KggFqv1J9NhrAYlePXCOJa0\n-----END PRIVATE KEY-----\n",
-  "client_email": "cloud-conversion-tool@cloud-conversion-system.iam.gserviceaccount.com",
-  "client_id": "107418183991911567406",
-  "auth_uri": "https://accounts.google.com/o/oauth2/auth",
-  "token_uri": "https://oauth2.googleapis.com/token",
-  "auth_provider_x509_cert_url": "https://www.googleapis.com/oauth2/v1/certs",
-  "client_x509_cert_url": "https://www.googleapis.com/robot/v1/metadata/x509/cloud-conversion-tool%40cloud-conversion-system.iam.gserviceaccount.com"
-}' | sudo tee -a /var/credentials/google-credentials.json
+echo '<CREDENTIALS_JSON>' | sudo tee -a /var/credentials/google-credentials.json
 docker pull ghcr.io/cloud-conversion-system/scalable-cloud-app:main
 docker run -v /var/credentials/google-credentials.json:/python-docker/cloud_conversion_tool/credentials/google-credentials.json -p 80:80  ghcr.io/cloud-conversion-system/scalable-cloud-app:main
 ```
