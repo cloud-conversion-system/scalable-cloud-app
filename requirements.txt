@@ -17,3 +17,6 @@ Celery
 redis
 wheel
 gunicorn
+google-auth
+google-auth-oauthlib
+google-cloud-storage
