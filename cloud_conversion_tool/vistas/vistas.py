@@ -1,5 +1,6 @@
 from flask_restful import Resource
 from ..modelos import db, User, Task, TaskSchema
+from ..cloud_bucket_access import gcsManager
 from flask import request, send_from_directory
 from flask_jwt_extended import jwt_required, create_access_token
 import os
@@ -54,8 +55,9 @@ class ViewTasks(Resource):
     def post(self):
         file = request.files['file']
         file_name = file.filename
-        file.save(os.path.join(UPLOAD_FOLDER, file_name))
+        file.save(os.path.join(UPLOAD_FOLDER, file_name))  
         file.close()
+        gcsManager.uploadFile(UPLOAD_FOLDER+'/'+file_name, file_name) #Uploading the file to the bucket
         new_format = request.form.get("newFormat")
         new_task = Task(file_name=file_name, new_format=new_format)
         db.session.add(new_task)
@@ -79,6 +81,7 @@ class ViewTask(Resource):
 class ViewFile(Resource):
     @jwt_required()
     def get(self, id_file):
+        gcsManager.downloadFile(UPLOAD_FOLDER, id_file)
         nombres_archivos = os.listdir(os.path.join(UPLOAD_FOLDER))
         filename = ""
         for fileName in nombres_archivos:

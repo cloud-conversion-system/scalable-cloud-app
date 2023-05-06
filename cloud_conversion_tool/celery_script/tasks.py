@@ -5,6 +5,7 @@ import os
 
 from cloud_conversion_tool.celery_script import app
 from ..modelos import Task, TaskSchema, Status
+from ..cloud_bucket_access import gcsManager
 
 from sqlalchemy import create_engine
 from sqlalchemy.orm import scoped_session
@@ -23,25 +24,37 @@ def check_database():
         compress_file(task.file_name, task.new_format, task.id)
 
 def compress_file(file_name, algorithm, task_id):
-    file_path = os.path.join('cloud_conversion_tool/files', file_name)
+    file_path = os.path.join('cloud_conversion_tool/files', file_name) 
     if algorithm == 'zip':
         with zipfile.ZipFile(file_path+'.zip', 'w') as zipf:
             zipf.write(file_path, arcname=os.path.basename(file_path))
+            
+        gcsManager.uploadFile(file_name, file_path)
+        os.remove(file_path)
         update_task(task_id)
         return f'El archivo {file_path} ha sido comprimido con ZIP'
     elif algorithm == '7z':
         with py7zr.SevenZipFile(file_path+'.7z', 'w') as szf:
             szf.write(file_path, arcname=os.path.basename(file_path))
+
+        gcsManager.uploadFile(file_name, file_path)
+        os.remove(file_path)
         update_task(task_id)
         return f'El archivo {file_path} ha sido comprimido con 7Z'
     elif algorithm == 'targz':
         with tarfile.open(file_path+'.tar.gz', 'w:gz') as tgzf:
             tgzf.add(file_path, arcname=os.path.basename(file_path))
+
+        gcsManager.uploadFile(file_name, file_path)
+        os.remove(file_path)
         update_task(task_id)
         return f'El archivo {file_path} ha sido comprimido con TAR.GZ'
     elif algorithm == 'tarbz2':
         with tarfile.open(file_path+'.tar.bz2', 'w:bz2') as tbzf:
             tbzf.add(file_path, arcname=os.path.basename(file_path))
+
+        gcsManager.uploadFile(file_name, file_path)
+        os.remove(file_path)
         update_task(task_id)
         return f'El archivo {file_path} ha sido comprimido con TAR.BZ2'
 
