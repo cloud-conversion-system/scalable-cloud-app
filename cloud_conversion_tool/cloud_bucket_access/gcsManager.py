@@ -2,9 +2,8 @@ from google.oauth2 import service_account
 from google.cloud import storage
 import os
 
-credentials_json = os.environ['GOOGLE_APPLICATION_CREDENTIALS']
-credentials = service_account.Credentials.from_service_account_info(
-    credentials_json)
+credentials_json = './credentials/google-credentials.txt'
+credentials = service_account.Credentials.from_service_account_file(credentials_json)
 client = storage.Client(credentials)
 
 # Define bucket instance
