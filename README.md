@@ -77,21 +77,26 @@ sudo touch /var/credentials/google-credentials.json
 echo '{
   "type": "service_account",
   "project_id": "cloud-conversion-system",
-  "private_key_id": "230008594b13114d489ee3c30f9571f289511c08",
-  "private_key": "-----BEGIN PRIVATE KEY-----\nMIIEvQIBADANBgkqhkiG9w0BAQEFAASCBKcwggSjAgEAAoIBAQCm/rU/v5CA1jqX\nVVw97gcI+9H0RUQvabvyGz8GNN2AtTUV5vfKgzwOdJDoXQAep4xE4BI+EFiqcCcA\nzwn/gR0hwQUalDzWPdGp9WTOepTyTmX2GhJVK45cheHjYoNPhs62z+9xGFPXREW+\nhbnBpxu1DQ5owm6HudeDB3vvjUiWocVu5jd42gc7A60+SgwOZfEqI5fc3hu+91yn\nfUHLDujoIue512dteml1iiO+J1XbJ34fu8l8dFzAWT4E5uFAxoJ3wDEDQ5ol5D9c\nYaQ86HNTXDJo+/AxjWo6loNqqhrzlrIS3rb3qx+Y++iD/1X3urnAlMmsh3bZxXJn\n+HXoE2dtAgMBAAECggEADXa4CUGPdnu53Jf9aGF9AAyW2FwPS8f5Zw3Vo9FLpy60\n7s+g3HB+kpHJBHBJwVmegF0VIMYznTDj9szlJaGfcNMS7299L4QWF98DjMwq9Gro\nDef7NhJdbM3p25SGjrkJMzRfkzLewO/YXwHWwKtm8KQdVx/km8fFfY3IaxTCgfZm\nW42butKByvgimnzHT27oKHxEHmxWXbHdcBt5CCAz81E+cyqppNgZFl9ns9kyb0Xm\nGcZvGP94ZneBBlyqPK2b7fHDb3may8/hOvX3WgsRkZ92zUOP9T+1mQq1C4ODfYkc\n7smSZJFZvesX3OaqvTnaIk31AbpwzhEMeHt04h74oQKBgQDsEVX32HxaRzoI15zf\nHl1EW2PZVM2hy5wHoSRNWiT+YNzv7QeTurDDsBq7U/BLCT+QGAlpIIlDceDoGu5T\ndpmsoOo7rryiIVWvgtItza6VELWFuTZI1qHSNtoM+HIe4WuUt5bzqzUzPzXFPjk4\nD5hzWAMESzLck9dGhYojghCkvQKBgQC1GFjAe1COafvwADgdYhLq7vKOClTdfzpU\n20exI8MtSoQdrxcvtDisXJ9tCaKs91+r1NCbahg8Enxlz9r8l/sMTVen5WPKDyq6\ntAbPs9nNn/B3kQ/DTbnNlGZzxU6aNVRteRGOHD3Ns4j02ZenpXRjSwTOyV7hY4xb\nmQyjP8hwcQKBgD9LlqVRomYCWwkr5p/cYF2Hs4n+NvR+x2M0Tat/1BNwnUynXTS7\nBdIyUbiQlQlJfYWBLGTHmIZA7nDNZ8FxN1sV+jfubh16mqLojLpDP+AwDrvAIVH+\nWn0mv+hiZRbqkhHZ99t1uFn5RM2SFX12kQW8P3LTRtvlt/7sp1FF+nhxAoGAFUhV\nNdnIL9R4zU3ZSmq6Om32h4bjTlyjaFGU7VZ8m5gEStDG8s5FUsxX2CKnwZgY4ELU\neU9Qpc6uW/C/lavuzxVP1eV5gsehh+ucWVCTqjy/r+2WYqeBzI1CNRzdDfZyg6MU\n0xSylrggwlXIIuWo9fpdCEhWJDrkxecIuy7FyaECgYEAjpCLSDhip1YXjz4d18/2\nI8DNLfrEdGB7Gk+HiTV6oLnBeN3a7BNv9IRDhx/jhjuJHOxcD/m0CUWSwuLddamq\nx6M2dwWN9kI8RCWl9sfnmRoWCeJT8zHeX23OBYR2cd0Vpz0bloPZpg91Hbe1ygbx\nwrV4oa8fu2FBkjcIW/ZdqxM=\n-----END PRIVATE KEY-----\n",
+  "private_key_id": "a7a48df62c83e5d67cbbf2f4c649df0219bdd9b9",
+  "private_key": "-----BEGIN PRIVATE KEY-----\nMIIEvgIBADANBgkqhkiG9w0BAQEFAASCBKgwggSkAgEAAoIBAQDOqzHWxzSjOTmx\n6LjHiv0TnQIVdJ7dRxeDztIKX6UYPnihv6niBERsfG7R4xE0dn3/3CsuCqChqPvk\nbQAjU2rGfcLPol5WEZOxZeCuMR9xqTqgLOTBeI0DM1dO/vtLm2Se2p1CiBkENAzV\nYrwqf52Ee6RXDyz1DYGYRwR7Yh4S3tpbDnJyzagr0oQga3T3eFDL/lMkrJjhpJ0O\n4aQNA1OQ3UVerZZwQZlxHA1AnKNL77AijD5sng8aFh8n9NesG+lLY8+gVfkHsAT4\n2LaxjrOgRZ/N6cpDD24UOOUHBgJuc3NdX6wk2HPwDjDipxTIfjJVzvWoLZW51+UX\nSVDpU119AgMBAAECggEAFKIU3LuQrscU0oVIhWuD7sRbI+c7wR3K5Dbu02hPJEeA\nZa2r+UuxxR77NWs1GYbG95d0nCkldl5Xn6ueOuimHWEK5Q3x2yfwFeL09o8i84cQ\nulMhF4vAkFQ84D8muZqvBgkPcEgEL14+9cLgxGFvSX3Kn4J9W43YpWpZsTPPitSU\n7h7fKqp8cm1CfKBmzn0+Y0GVoCXRORiYPxqtyY5gpgubJQEklgsI10XGmJ3C5ALk\nJyGdLnCIC8/6kLtesjRuMTL2TM2kegmlg/RHftX8/3cWFjLOSahcAsAVvBdGsQmy\n8eQ/TUQvKKa7wCpMUpwf8XPURqY3VzcL93y3bZ6o5QKBgQD3KgqNX3ClaaLa6S0R\nYmlI+TtCLjFRhHY+tg8GoZFhSkR5J/NtZ4N6hloX79tZEbg20UEv6nNxJO18iqGa\nwDdkY/VtWESfEMd/nmJlXsWbZsaIs4XtdAo3qhK2Sx1Bo4w4lactwFqtXU6lcl9h\n3BeJqA5mEs7NWJscIE4P8O8rywKBgQDWDo2bOWg8Rt+I5wBHiIlXstYgCWavIQNH\nFDLyZEdUlRK+zxJdpqtOSUzwLLTJ+2Oj9rnjRbp2qXMJpOEDWE4kq0nwMy1GuiQg\ngLIzn1X0NgzSRQqY/E19qI0Qe6AG2sXlJlvCD1+r21StK0Kh8kqfijIdUUWqFGEW\nLZ0KzpoC1wKBgFbOPCCEuYJOxHSP2lU1s/Z+GfLXWFjh5cmGlWZlzjJWLBBFGLh+\n121rzC6F/gqdL46JFZTniZ3eM04/Phykj4/Bj4vUqV0YPoiyrqodi9dVVDrkmg/Y\nZlJAeAvv+5l3ACNLZAiseuxSTfHLZnZvHxEopc3xoxH5oZhSPDhbDRTbAoGBAJc8\nGwJjkeicbkyMYN8pcVfby3tBCSKMoYMzmzc0cE0rMd5L8P7nxbp/AXPjMixOh7yN\nkhIn7rDt0ZArxKqXVkaEGq4xijihROsN4lmkppbvJSnei7lA8QLp9hiCL7MIGK9o\n5YV7VS3XvcDHgsFmrSCBBB1AkYaz9VA1E/JRu/BrAoGBAMDclmcp0IQUvYjPx4Ji\nOhfynrcExjHfY4famgWlqgnzAugHBgzXF+L5oKVEtqptI0cFukJeRynNrAMVR0tG\nzyP7QwbqPuY2r4xZjWj71L7bsbECUjstvN8RB/uNyTBs0pk6Swm9bGaNA/GC1QHx\n6KggFqv1J9NhrAYlePXCOJa0\n-----END PRIVATE KEY-----\n",
   "client_email": "cloud-conversion-tool@cloud-conversion-system.iam.gserviceaccount.com",
   "client_id": "107418183991911567406",
   "auth_uri": "https://accounts.google.com/o/oauth2/auth",
   "token_uri": "https://oauth2.googleapis.com/token",
   "auth_provider_x509_cert_url": "https://www.googleapis.com/oauth2/v1/certs",
   "client_x509_cert_url": "https://www.googleapis.com/robot/v1/metadata/x509/cloud-conversion-tool%40cloud-conversion-system.iam.gserviceaccount.com"
-}
-' | sudo tee -a /var/credentials/google-credentials.json
+}' | sudo tee -a /var/credentials/google-credentials.json
 docker pull ghcr.io/cloud-conversion-system/scalable-cloud-app:main
 docker run -v /var/credentials/google-credentials.json:/python-docker/cloud_conversion_tool/credentials/google-credentials.json -p 80:80  ghcr.io/cloud-conversion-system/scalable-cloud-app:main
 ```
 
 ```
+#!bin/bash
+sudo rm /var/credentials/google-credentials.json
+sudo touch /var/credentials/google-credentials.json
+echo '<CREDENTIALS_JSON>' | sudo tee -a /var/credentials/google-credentials.json
+docker pull ghcr.io/cloud-conversion-system/scalable-cloud-app-worker:main
+docker run -v /var/credentials/google-credentials.json:/python-docker/cloud_conversion_tool/credentials/google-credentials.json -p 80:80  ghcr.io/cloud-conversion-system/scalable-cloud-app-worker:main
 ```
 - Habilitar monitoring y logging
 

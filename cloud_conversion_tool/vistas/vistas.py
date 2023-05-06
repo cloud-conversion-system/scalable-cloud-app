@@ -58,10 +58,9 @@ class ViewTasks(Resource):
         file.save(os.path.join(UPLOAD_FOLDER, file_name))
         file.close()
         # Uploading the file to the bucket
-        print("File Received")
-        gcsManager.uploadFile(UPLOAD_FOLDER + '/' + file_name, file_name)
-        print("File Uploaded")
+        gcsManager.uploadFile(os.path.join(UPLOAD_FOLDER, file_name), file_name)
         os.remove(os.path.join(UPLOAD_FOLDER, file_name))
+
         new_format = request.form.get("newFormat")
         new_task = Task(file_name=file_name, new_format=new_format)
         db.session.add(new_task)
