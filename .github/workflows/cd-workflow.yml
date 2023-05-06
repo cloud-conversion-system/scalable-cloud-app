@@ -18,9 +18,9 @@ jobs:
       matrix:
         include:
           - dockerfile: ./app.Dockerfile
-            image: ghcr.io/cloud-conversion-system/public-cloud-app
+            image: ghcr.io/cloud-conversion-system/scalable-cloud-app
           - dockerfile: ./worker.Dockerfile
-            image: ghcr.io/cloud-conversion-system/public-cloud-worker
+            image: ghcr.io/cloud-conversion-system/scalable-cloud-app-worker
     permissions:
       contents: read
       packages: write
