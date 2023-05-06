@@ -72,8 +72,27 @@ sudo docker run --platform linux/amd64 -p 80:80 -v /mnt/nfs/cloud-conversion-too
 - Añade lo siguiente a automatización en "secuencia de comandos de inicio":
 ```
 #!bin/bash
-docker pull ghcr.io/cloud-conversion-system/public-cloud-app:main
+sudo rm /var/credentials/google-credentials.json
+sudo touch /var/credentials/google-credentials.json
+echo '{
+  "type": "service_account",
+  "project_id": "cloud-conversion-system",
+  "private_key_id": "230008594b13114d489ee3c30f9571f289511c08",
+  "private_key": "-----BEGIN PRIVATE KEY-----\nMIIEvQIBADANBgkqhkiG9w0BAQEFAASCBKcwggSjAgEAAoIBAQCm/rU/v5CA1jqX\nVVw97gcI+9H0RUQvabvyGz8GNN2AtTUV5vfKgzwOdJDoXQAep4xE4BI+EFiqcCcA\nzwn/gR0hwQUalDzWPdGp9WTOepTyTmX2GhJVK45cheHjYoNPhs62z+9xGFPXREW+\nhbnBpxu1DQ5owm6HudeDB3vvjUiWocVu5jd42gc7A60+SgwOZfEqI5fc3hu+91yn\nfUHLDujoIue512dteml1iiO+J1XbJ34fu8l8dFzAWT4E5uFAxoJ3wDEDQ5ol5D9c\nYaQ86HNTXDJo+/AxjWo6loNqqhrzlrIS3rb3qx+Y++iD/1X3urnAlMmsh3bZxXJn\n+HXoE2dtAgMBAAECggEADXa4CUGPdnu53Jf9aGF9AAyW2FwPS8f5Zw3Vo9FLpy60\n7s+g3HB+kpHJBHBJwVmegF0VIMYznTDj9szlJaGfcNMS7299L4QWF98DjMwq9Gro\nDef7NhJdbM3p25SGjrkJMzRfkzLewO/YXwHWwKtm8KQdVx/km8fFfY3IaxTCgfZm\nW42butKByvgimnzHT27oKHxEHmxWXbHdcBt5CCAz81E+cyqppNgZFl9ns9kyb0Xm\nGcZvGP94ZneBBlyqPK2b7fHDb3may8/hOvX3WgsRkZ92zUOP9T+1mQq1C4ODfYkc\n7smSZJFZvesX3OaqvTnaIk31AbpwzhEMeHt04h74oQKBgQDsEVX32HxaRzoI15zf\nHl1EW2PZVM2hy5wHoSRNWiT+YNzv7QeTurDDsBq7U/BLCT+QGAlpIIlDceDoGu5T\ndpmsoOo7rryiIVWvgtItza6VELWFuTZI1qHSNtoM+HIe4WuUt5bzqzUzPzXFPjk4\nD5hzWAMESzLck9dGhYojghCkvQKBgQC1GFjAe1COafvwADgdYhLq7vKOClTdfzpU\n20exI8MtSoQdrxcvtDisXJ9tCaKs91+r1NCbahg8Enxlz9r8l/sMTVen5WPKDyq6\ntAbPs9nNn/B3kQ/DTbnNlGZzxU6aNVRteRGOHD3Ns4j02ZenpXRjSwTOyV7hY4xb\nmQyjP8hwcQKBgD9LlqVRomYCWwkr5p/cYF2Hs4n+NvR+x2M0Tat/1BNwnUynXTS7\nBdIyUbiQlQlJfYWBLGTHmIZA7nDNZ8FxN1sV+jfubh16mqLojLpDP+AwDrvAIVH+\nWn0mv+hiZRbqkhHZ99t1uFn5RM2SFX12kQW8P3LTRtvlt/7sp1FF+nhxAoGAFUhV\nNdnIL9R4zU3ZSmq6Om32h4bjTlyjaFGU7VZ8m5gEStDG8s5FUsxX2CKnwZgY4ELU\neU9Qpc6uW/C/lavuzxVP1eV5gsehh+ucWVCTqjy/r+2WYqeBzI1CNRzdDfZyg6MU\n0xSylrggwlXIIuWo9fpdCEhWJDrkxecIuy7FyaECgYEAjpCLSDhip1YXjz4d18/2\nI8DNLfrEdGB7Gk+HiTV6oLnBeN3a7BNv9IRDhx/jhjuJHOxcD/m0CUWSwuLddamq\nx6M2dwWN9kI8RCWl9sfnmRoWCeJT8zHeX23OBYR2cd0Vpz0bloPZpg91Hbe1ygbx\nwrV4oa8fu2FBkjcIW/ZdqxM=\n-----END PRIVATE KEY-----\n",
+  "client_email": "cloud-conversion-tool@cloud-conversion-system.iam.gserviceaccount.com",
+  "client_id": "107418183991911567406",
+  "auth_uri": "https://accounts.google.com/o/oauth2/auth",
+  "token_uri": "https://oauth2.googleapis.com/token",
+  "auth_provider_x509_cert_url": "https://www.googleapis.com/oauth2/v1/certs",
+  "client_x509_cert_url": "https://www.googleapis.com/robot/v1/metadata/x509/cloud-conversion-tool%40cloud-conversion-system.iam.gserviceaccount.com"
+}
+' | sudo tee -a /var/credentials/google-credentials.json
+docker pull ghcr.io/cloud-conversion-system/scalable-cloud-app:main
+docker run -v /var/credentials/google-credentials.json:/python-docker/cloud_conversion_tool/credentials/google-credentials.json -p 80:80  ghcr.io/cloud-conversion-system/scalable-cloud-app:main
+```
 
+```
+```
 - Habilitar monitoring y logging
 
 ## Documentación del API

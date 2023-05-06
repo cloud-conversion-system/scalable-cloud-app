@@ -1,10 +1,9 @@
-from google.oauth2 import service_account
+from google.oauth2.service_account import Credentials
 from google.cloud import storage
-import os
 
-credentials_json = './credentials/google-credentials.txt'
-credentials = service_account.Credentials.from_service_account_file(credentials_json)
-client = storage.Client(credentials)
+credentials_json = './credentials/google-credentials.json'
+credentials = Credentials.from_service_account_file(credentials_json)
+client = storage.Client(project='cloud_conversion_tool', credentials=credentials)
 
 # Define bucket instance
 bucket = client.get_bucket('cloud_conversion_tool')
