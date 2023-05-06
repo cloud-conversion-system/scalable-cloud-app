@@ -85,7 +85,12 @@ class ViewTask(Resource):
 class ViewFile(Resource):
     @jwt_required()
     def get(self, id_file):
-        matching_blobs = gcsManager.listBlobs(id_file)
-        file_name = matching_blobs[0].name
-        gcsManager.downloadFile(os.path.join('cloud_conversion_tool/files', id_file), file_name)
-        return send_from_directory(directory=UPLOAD_FOLDER, filename=file_name, as_attachment=True)
+        try:
+            matching_blobs = gcsManager.listBlobs(id_file)
+            if len(matching_blobs) == 0:
+                return {"message": "File not found"}, 404
+            file_name = matching_blobs[0].name
+            gcsManager.downloadFile(file_name)
+            return send_from_directory(directory='./', filename=file_name, as_attachment=True)
+        except Exception as e:
+            return {"message": "Error occurred while processing the request", "error": str(e)}, 500
