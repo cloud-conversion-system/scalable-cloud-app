@@ -58,7 +58,8 @@ class ViewTasks(Resource):
         file.save(os.path.join(UPLOAD_FOLDER, file_name))
         file.close()
         # Uploading the file to the bucket
-        gcsManager.uploadFile(os.path.join(UPLOAD_FOLDER, file_name), file_name)
+        gcsManager.uploadFile(os.path.join(
+            UPLOAD_FOLDER, file_name), file_name)
         os.remove(os.path.join(UPLOAD_FOLDER, file_name))
 
         new_format = request.form.get("newFormat")
@@ -84,11 +85,7 @@ class ViewTask(Resource):
 class ViewFile(Resource):
     @jwt_required()
     def get(self, id_file):
-        gcsManager.downloadFile(UPLOAD_FOLDER, id_file)
-        nombres_archivos = os.listdir(os.path.join(UPLOAD_FOLDER))
-        filename = ""
-        for fileName in nombres_archivos:
-            name = fileName.split(".")[0]
-            if name == id_file:
-                filename = fileName
+        matching_blobs = gcsManager.listBlobs(id_file)
+        gcsManager.downloadFile(UPLOAD_FOLDER, matching_blobs[0].name)
+        filename = matching_blobs[0].name
         return send_from_directory(directory=UPLOAD_FOLDER, filename=filename, as_attachment=True)
