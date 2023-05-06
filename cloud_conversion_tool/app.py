@@ -18,4 +18,8 @@ api.add_resource(ViewTasks, '/api/tasks')
 api.add_resource(ViewTask, '/api/task/<int:id_task>')
 api.add_resource(ViewFile, '/api/files/<string:id_file>')
 
+@app.route('/health')
+def health_check():
+    return 'Server is running', 200
+
 jwt = JWTManager(app)
