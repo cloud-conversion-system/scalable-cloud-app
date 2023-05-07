@@ -69,25 +69,19 @@ sudo docker run --platform linux/amd64 -p 80:80 -v /mnt/nfs/cloud-conversion-too
 - Selecciona máquinas de tipo N1 f1-micro
 - Disco de arranque Container-Optimized OS
 - Etiqueta de red http-server para permitir conexiones por el puerto 80
+- Añada una imagen de contenedor a la plantilla con la siguiente información:
+    - En la Imagen del contenedor coloque: ghcr.io/cloud-conversion-system/scalable-cloud-app:main
+    - Agregue un volumen de tipo Directorio, en la ruta de activación ponga ```/app/credentials/``` como Ruta de activación y ```/var/credentials/``` como Ruta de acceso del host en Modo Lectura.
 - Añade lo siguiente a automatización en "secuencia de comandos de inicio":
 
 ```
 #!bin/bash
+sudo mkdir /var/credentials/
 sudo rm /var/credentials/google-credentials.json
 sudo touch /var/credentials/google-credentials.json
-echo '<CREDENTIALS_JSON>' | sudo tee -a /var/credentials/google-credentials.json
-docker pull ghcr.io/cloud-conversion-system/scalable-cloud-app:main
-docker run -v /var/credentials/google-credentials.json:/python-docker/cloud_conversion_tool/credentials/google-credentials.json -p 80:80  ghcr.io/cloud-conversion-system/scalable-cloud-app:main
+echo '<GOOGLE_CREDENTIALS>' | sudo tee -a /var/credentials/google-credentials.json
 ```
 
-```
-#!bin/bash
-sudo rm /var/credentials/google-credentials.json
-sudo touch /var/credentials/google-credentials.json
-echo '<CREDENTIALS_JSON>' | sudo tee -a /var/credentials/google-credentials.json
-docker pull ghcr.io/cloud-conversion-system/scalable-cloud-app-worker:main
-docker run -v /var/credentials/google-credentials.json:/python-docker/cloud_conversion_tool/credentials/google-credentials.json -p 80:80  ghcr.io/cloud-conversion-system/scalable-cloud-app-worker:main
-```
 - Habilitar monitoring y logging
 
 ## Documentación del API
