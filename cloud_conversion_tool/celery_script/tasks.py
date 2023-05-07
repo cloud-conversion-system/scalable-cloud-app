@@ -16,7 +16,7 @@ engine = create_engine(
 db_session = scoped_session(sessionmaker(
     autocommit=False, autoflush=False, bind=engine))
 task_schema = TaskSchema()
-
+UPLOAD_FOLDER = '/python-docker/cloud_conversion_tool/files/'
 
 @app.task
 def check_database():
@@ -26,8 +26,8 @@ def check_database():
 
 
 def compress_file(file_name, algorithm, task_id):
-    file_path = os.path.join('cloud_conversion_tool/files', file_name)
-    gcsManager.downloadFile('files/' + file_name)
+    file_path = os.path.join(UPLOAD_FOLDER, file_name)
+    gcsManager.downloadFile(file_name)
     if algorithm == 'zip':
         with zipfile.ZipFile(file_path+'.zip', 'w') as zipf:
             zipf.write(file_path, arcname=os.path.basename(file_path))

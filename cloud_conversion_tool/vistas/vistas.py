@@ -5,7 +5,7 @@ from flask import request, send_from_directory
 from flask_jwt_extended import jwt_required, create_access_token
 import os
 
-UPLOAD_FOLDER = './files'
+UPLOAD_FOLDER = '/python-docker/cloud_conversion_tool/files/'
 
 task_schema = TaskSchema()
 
@@ -89,8 +89,8 @@ class ViewFile(Resource):
             matching_blobs = gcsManager.listBlobs(id_file)
             if len(matching_blobs) == 0:
                 return {"message": "File not found"}, 404
-            file_name = matching_blobs[0].name
+            file_name = matching_blobs[0].name.split('/')[-1]
             gcsManager.downloadFile(file_name)
-            return send_from_directory(directory='./', filename=file_name, as_attachment=True)
+            return send_from_directory(directory=UPLOAD_FOLDER, filename=file_name, as_attachment=True)
         except Exception as e:
             return {"message": "Error occurred while processing the request", "error": str(e)}, 500
