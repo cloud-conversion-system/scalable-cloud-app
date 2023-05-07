@@ -27,7 +27,7 @@ def check_database():
 
 def compress_file(file_name, algorithm, task_id):
     file_path = os.path.join('cloud_conversion_tool/files', file_name)
-    gcsManager.downloadFile(file_path, file_name)
+    gcsManager.downloadFile('files/' + file_name)
     if algorithm == 'zip':
         with zipfile.ZipFile(file_path+'.zip', 'w') as zipf:
             zipf.write(file_path, arcname=os.path.basename(file_path))
