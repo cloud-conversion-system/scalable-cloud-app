@@ -5,9 +5,8 @@ REST Backend + Asynchronous Processing Layer. Design and implementation of a sca
 This application allows compressing files using different utilities and/or algorithms: ZIP, 7Z, TAR.GZ, TAR.BZ2
 
 ## Video Explicativo
-### TODO: Add video
 
-[YouTube Link]()
+[YouTube Link](https://youtu.be/pdL6Ce-l6FU)
 
 ## ¿Cómo desplegar la aplicación en GCP?
 
@@ -47,6 +46,34 @@ Para comenzar, se creó un bucket en Cloud Storage y se otorgaron los permisos n
     ```
 
 - Habilitar monitoring y logging
+
+## Crear un grupo de instancias a partir de la plantilla
+
+Después de haber creado la plantilla de instancias para la ejecución de la aplicación en GCP, se puede crear un grupo de instancias a partir de dicha plantilla.
+
+Para crear el grupo de instancias, sigue los siguientes pasos:
+
+1. En el menú de navegación, selecciona "Instancias de grupo de instancias".
+2. Haz clic en "Crear un grupo de instancias".
+3. Completa los campos requeridos, como el nombre del grupo de instancias y la cantidad de instancias que deseas crear.
+4. En el campo "Plantilla de instancia", selecciona la plantilla que creaste anteriormente.
+5. Configura el resto de los campos según tus necesidades.
+6. Haz clic en "Crear".
+
+Una vez que el grupo de instancias se haya creado, podrás acceder a él desde el menú de navegación y administrarlo según tus necesidades.
+
+## Crear un balanceador de carga
+
+Para crear un balanceador de carga en GCP, sigue los siguientes pasos:
+
+1. En el menú de navegación, selecciona "Balanceador de carga".
+2. Haz clic en "Crear balanceador de carga".
+3. Selecciona "Balanceador de carga HTTP(S)".
+4. Configura el resto de los campos según tus necesidades.
+5. En la sección "Grupo de instancias", selecciona el grupo de instancias que creaste anteriormente.
+6. Haz clic en "Crear".
+
+Una vez que el balanceador de carga se haya creado, podrás acceder a él desde el menú de navegación y administrarlo según tus necesidades. Asegúrate de configurar las reglas de enrutamiento y los servicios de back-end adecuados para que el balanceador de carga funcione correctamente.
 
 ## Despliegue con Docker del worker
 Puede utilizar Docker para inicializar la aplicación en GCP siguiendo las siguientes instrucciones:
