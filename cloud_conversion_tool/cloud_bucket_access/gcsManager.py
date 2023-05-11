@@ -11,13 +11,16 @@ bucket = client.get_bucket('cloud_conversion_tool')
 FOLDER_PATH = '/python-docker/cloud_conversion_tool/files/'
 
 def uploadFile(file_path, file_name):
-    blob = bucket.blob(FOLDER_PATH + file_name)
+    blob = bucket.blob('files/' + file_name)
     blob.upload_from_filename(file_path)
 
 
 def downloadFile(file_name):
     blob = bucket.blob('files/' + file_name)
     blob.download_to_filename(FOLDER_PATH + file_name)
+
+
+#TODO: create deleteFile that is used on task deletion
 
 
 def listBlobs(file_name):
