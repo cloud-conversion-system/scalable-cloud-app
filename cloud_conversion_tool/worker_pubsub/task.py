@@ -41,7 +41,8 @@ def main():
     subscriber.open(callback=callback)
 
 
-def check_database(message_file_id):
+def check_database(message):
+    message_file_id=int(message)
     task = db_session.query(Task).filter_by(id=message_file_id)
     compress_file(task.file_name, task.new_format, task.id)
 
