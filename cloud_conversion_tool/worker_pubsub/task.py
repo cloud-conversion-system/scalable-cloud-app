@@ -26,24 +26,24 @@ credentials_json = '/app/credentials/google-credentials.json'
 publisher = pubsub_v1.PublisherClient.from_service_account_file(credentials_json)
 subscriber = pubsub_v1.SubscriberClient.from_service_account_file(credentials_json)
 
-#Processes performed when a message is received
-def callback(message):
-    print(f"Received message: {message}")
-    # The message will be the file name
-    check_database(message)
-    message.ack()
+def main():
+    #Processes performed when a message is received
+    def callback(message):
+        print(f"Received message: {message}")
+        # The message will be the file name
+        check_database(message)
+        message.ack()
 
-subscription_path = subscriber.subscription_path('cloud-conversion-system', 'worker_suscription')
-subscriber.subscribe(subscription_path, callback=callback)
+    subscription_path = subscriber.subscription_path('cloud-conversion-system', 'worker_suscription')
+    subscriber.subscribe(subscription_path, callback=callback)
 
-#Starts the message receiving loop
-subscriber.open(callback=callback)
+    #Starts the message receiving loop
+    subscriber.open(callback=callback)
 
 
-def check_database(message_file_name):
-    tasks = db_session.query(Task).filter_by(status=Status.UPLOADED).filter_by(file_name=message_file_name).all()
-    for task in tasks:
-        compress_file(task.file_name, task.new_format, task.id)
+def check_database(message_file_id):
+    task = db_session.query(Task).filter_by(id=message_file_id)
+    compress_file(task.file_name, task.new_format, task.id)
 
 
 def compress_file(file_name, algorithm, task_id):
@@ -85,3 +85,5 @@ def update_task(task_id):
     db_session.commit()
     task_schema.dump(task)
 
+if __name__ == "__main__":
+    main()

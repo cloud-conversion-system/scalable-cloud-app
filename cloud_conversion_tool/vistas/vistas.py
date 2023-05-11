@@ -74,7 +74,7 @@ class ViewTasks(Resource):
         db.session.commit()
 
         #Sending the message in pub/sub
-        message=file_name
+        message=new_task.id
         message_data = message.encode("utf-8")
         topic_path = publisher.topic_path('cloud-conversion-system', 'file_system_notification')
         future = publisher.publish(topic_path, data=message_data) #Result of the asynchronous process
