@@ -82,8 +82,8 @@ En primer lugar, cree 1 instancia de VM utilizando Compute Engine y en una de el
 
 ```
 sudo snap install docker
-sudo docker pull --platform linux/x86_64 ghcr.io/cloud-conversion-system/public-cloud-worker:main
-sudo docker run --platform linux/amd64 ghcr.io/cloud-conversion-system/public-cloud-worker:main
+sudo docker pull --platform linux/x86_64 ghcr.io/cloud-conversion-system/scalable-cloud-app-worker:main
+sudo docker run --platform linux/amd64 ghcr.io/cloud-conversion-system/scalable-cloud-app-worker:main
 ```
 
 ## Documentación del API
