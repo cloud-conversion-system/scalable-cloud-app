@@ -3,7 +3,7 @@ import py7zr
 import tarfile
 import os
 
-from cloud_conversion_tool.celery_script import app
+#from cloud_conversion_tool.celery_script import app
 from ..modelos import Task, TaskSchema, Status
 from ..cloud_bucket_access import gcsManager
 
