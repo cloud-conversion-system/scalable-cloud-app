@@ -2,7 +2,7 @@ name: Docker
 
 on:
   push:
-    branches: ["main", "feature/message-stack"]
+    branches: ["main", "development"]
   pull_request:
     branches: ["main"]
 
