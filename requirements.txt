@@ -20,3 +20,4 @@ gunicorn
 google-auth
 google-auth-oauthlib
 google-cloud-storage
+google-cloud-pubsub

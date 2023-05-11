@@ -3,11 +3,17 @@ from ..modelos import db, User, Task, TaskSchema
 from ..cloud_bucket_access import gcsManager
 from flask import request, send_from_directory
 from flask_jwt_extended import jwt_required, create_access_token
+from google.cloud import pubsub_v1
 import os
 
 UPLOAD_FOLDER = '/python-docker/cloud_conversion_tool/files/'
 
 task_schema = TaskSchema()
+
+#Credentials and pub/sub instantiation
+credentials_json = '/app/credentials/google-credentials.json'
+publisher = pubsub_v1.PublisherClient.from_service_account_file(credentials_json)
+subscriber = pubsub_v1.SubscriberClient.from_service_account_file(credentials_json)
 
 
 class VistaSignUp(Resource):
@@ -66,6 +72,13 @@ class ViewTasks(Resource):
         new_task = Task(file_name=file_name, new_format=new_format)
         db.session.add(new_task)
         db.session.commit()
+
+        #Sending the message in pub/sub
+        message=file_name
+        message_data = message.encode("utf-8")
+        topic_path = publisher.topic_path('cloud-conversion-system', 'file_system_notification')
+        future = publisher.publish(topic_path, data=message_data) #Result of the asynchronous process
+
         return task_schema.dump(new_task)
 
 
