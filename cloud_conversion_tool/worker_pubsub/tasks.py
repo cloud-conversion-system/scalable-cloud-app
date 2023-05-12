@@ -39,7 +39,6 @@ def main():
     subscription_path = subscriber.subscription_path('cloud-conversion-system', 'worker_suscription')
     subscriber.subscribe(subscription_path, callback=callback)
 
-'''
     # Starts the message receiving loop
     while consuming:
         try:
@@ -52,7 +51,7 @@ def main():
             print(f"An error occurred: {e}. Stopping subscriber...")
             subscriber.stop()
             break
-'''
+
 
 def check_database(message):
     message_file_id=int(message)
