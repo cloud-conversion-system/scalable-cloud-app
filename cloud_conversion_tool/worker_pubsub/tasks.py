@@ -23,7 +23,6 @@ UPLOAD_FOLDER = '/python-docker/cloud_conversion_tool/files/'
 
 #Credentials and pub/sub instantiation
 credentials_json = '/app/credentials/google-credentials.json'
-publisher = pubsub_v1.PublisherClient.from_service_account_file(credentials_json)
 subscriber = pubsub_v1.SubscriberClient.from_service_account_file(credentials_json)
 
 def main():
@@ -31,14 +30,17 @@ def main():
     def callback(message):
         print(f"Received message: {message}")
         # The message will be the file name
-        check_database(message)
+        check_database(message.data.decode("utf-8"))
         message.ack()
 
     subscription_path = subscriber.subscription_path('cloud-conversion-system', 'worker_suscription')
     subscriber.subscribe(subscription_path, callback=callback)
 
-    #Starts the message receiving loop
-    subscriber.open(callback=callback)
+    # Starts the message receiving loop
+    try:
+        subscriber.start()
+    except KeyboardInterrupt:
+        subscriber.stop()
 
 
 def check_database(message):

@@ -13,7 +13,6 @@ task_schema = TaskSchema()
 #Credentials and pub/sub instantiation
 credentials_json = '/app/credentials/google-credentials.json'
 publisher = pubsub_v1.PublisherClient.from_service_account_file(credentials_json)
-subscriber = pubsub_v1.SubscriberClient.from_service_account_file(credentials_json)
 
 
 class VistaSignUp(Resource):
