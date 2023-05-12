@@ -2,6 +2,7 @@ import zipfile
 import py7zr
 import tarfile
 import os
+import time
 
 #from cloud_conversion_tool.celery_script import app
 from cloud_conversion_tool.modelos.modelos import Task, TaskSchema, Status#from ..modelos import Task, TaskSchema, Status
@@ -26,6 +27,8 @@ credentials_json = '/app/credentials/google-credentials.json'
 subscriber = pubsub_v1.SubscriberClient.from_service_account_file(credentials_json)
 
 def main():
+    consuming = True
+
     #Processes performed when a message is received
     def callback(message):
         print(f"Received message: {message}")
@@ -37,10 +40,12 @@ def main():
     subscriber.subscribe(subscription_path, callback=callback)
 
     # Starts the message receiving loop
-    try:
-        subscriber.start()
-    except KeyboardInterrupt:
-        subscriber.stop()
+    while consuming:
+        try:
+            time.sleep(1)
+        except KeyboardInterrupt:
+            consuming = False
+            subscriber.stop()
 
 
 def check_database(message):
