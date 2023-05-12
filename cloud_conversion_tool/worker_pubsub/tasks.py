@@ -44,13 +44,20 @@ def main():
         try:
             time.sleep(1)
         except KeyboardInterrupt:
-            consuming = False
+            print("Keyboard interrupt detected. Stopping subscriber...")
             subscriber.stop()
+            break
+        except Exception as e:
+            print(f"An error occurred: {e}. Stopping subscriber...")
+            subscriber.stop()
+            break
 
 
 def check_database(message):
     message_file_id=int(message)
+    print(message_file_id)
     task = db_session.query(Task).filter_by(id=message_file_id)
+    print(task)
     compress_file(task.file_name, task.new_format, task.id)
 
 
