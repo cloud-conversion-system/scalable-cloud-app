@@ -56,7 +56,7 @@ def main():
 def check_database(message):
     message_file_id=int(message)
     print(message_file_id)
-    task = db_session.query(Task).filter_by(id=message_file_id).all()
+    task = db_session.query(Task).filter_by(id=message_file_id).all()[0]
     print(task)
     compress_file(task.file_name, task.new_format, task.id)
 
