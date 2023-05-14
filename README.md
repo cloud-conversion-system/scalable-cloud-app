@@ -6,7 +6,7 @@ This application allows compressing files using different utilities and/or algor
 
 ## Video Explicativo
 
-[YouTube Link](https://youtu.be/pdL6Ce-l6FU)
+TODO: [YouTube Link]()
 
 ## ¿Cómo desplegar la aplicación en GCP?
 
@@ -19,7 +19,7 @@ Verifique que la maquina pertenezca a la misma VPC que las demás maquinas despl
 
 Luego de haber chequeado la opción, en caso de que su proyecto no tenga activadas las APIs necesarias, GCP lo redirigirá a un tutorial para activarlas y asignar correctamente esa IP privada a la VPC correspondiente.
 
-Una vez la instancia se haya creado, reemplace la IP de la base de datos contenida en los archivos ```celery_script/tasks``` y ```__init__.py```. Solo debe reemplazar la parte contenida después del @ y antes del /.
+Una vez la instancia se haya creado, reemplace la IP de la base de datos contenida en los archivos `worker_pubsub/tasks` y `__init__.py`. Solo debe reemplazar la parte contenida después del @ y antes del /.
 
 ### Despliegue del sistema de Cloud Storage
 
@@ -27,7 +27,7 @@ Para el despliegue del sistema de archivos de red, se ha actualizado la solució
 
 Para comenzar, se creó un bucket en Cloud Storage y se otorgaron los permisos necesarios para que la instancia pueda acceder a él. En las VM del worker y de la aplicación, se configuraron un par de parámetros adicionales para realizar la conexión con el bucket de Cloud Storage.
 
-### Crea una plantilla de instancias para la ejecución de la aplicación.
+### Creación de plantillas de instancia para la ejecución de la aplicación.
 
 - Selecciona máquinas de tipo N1 f1-micro.
 - Disco de arranque Container-Optimized OS.
@@ -47,9 +47,11 @@ Para comenzar, se creó un bucket en Cloud Storage y se otorgaron los permisos n
 
 - Habilitar monitoring y logging
 
+Por último, se deben repetir los anteriores pasos para la plantilla de instancia del worker, con la única diferencia de que la imagen del contenedor es la siguiente: `ghcr.io/cloud-conversion-system/scalable-cloud-app-worker:main`.
+
 ## Crear un grupo de instancias a partir de la plantilla
 
-Después de haber creado la plantilla de instancias para la ejecución de la aplicación en GCP, se puede crear un grupo de instancias a partir de dicha plantilla.
+Después de haber creado las plantillas de instancia para la ejecución de la aplicación y el worker en GCP, se puede crear su grupo de instancias a partir de dicha plantilla.
 
 Para crear el grupo de instancias, sigue los siguientes pasos:
 
@@ -74,17 +76,6 @@ Para crear un balanceador de carga en GCP, sigue los siguientes pasos:
 6. Haz clic en "Crear".
 
 Una vez que el balanceador de carga se haya creado, podrás acceder a él desde el menú de navegación y administrarlo según tus necesidades. Asegúrate de configurar las reglas de enrutamiento y los servicios de back-end adecuados para que el balanceador de carga funcione correctamente.
-
-## Despliegue con Docker del worker
-Puede utilizar Docker para inicializar la aplicación en GCP siguiendo las siguientes instrucciones:
-
-En primer lugar, cree 1 instancia de VM utilizando Compute Engine y en una de ellas ejecute el worker. La ejecución de cada componente la podrá realizar de la siguiente forma:
-
-```
-sudo snap install docker
-sudo docker pull --platform linux/x86_64 ghcr.io/cloud-conversion-system/scalable-cloud-app-worker:main
-sudo docker run --platform linux/amd64 ghcr.io/cloud-conversion-system/scalable-cloud-app-worker:main
-```
 
 ## Documentación del API
 
