@@ -1,7 +1,5 @@
 FROM python:3.9-slim-buster
 
-RUN apt-get update && apt-get install -y redis-server
-
 WORKDIR /python-docker
 
 COPY requirements.txt requirements.txt

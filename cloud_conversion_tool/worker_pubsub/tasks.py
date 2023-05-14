@@ -4,8 +4,8 @@ import tarfile
 import os
 import time
 
-#from cloud_conversion_tool.celery_script import app
-from cloud_conversion_tool.modelos.modelos import Task, TaskSchema, Status#from ..modelos import Task, TaskSchema, Status
+
+from cloud_conversion_tool.modelos.modelos import Task, TaskSchema, Status
 from ..cloud_bucket_access import gcsManager
 
 from sqlalchemy import create_engine
@@ -15,28 +15,37 @@ from sqlalchemy.orm import sessionmaker
 from google.cloud import pubsub_v1
 
 engine = create_engine(
-    'postgresql://postgres:password@10.91.16.3/cloud_conversion_tool')
-db_session = scoped_session(sessionmaker(
-    autocommit=False, autoflush=False, bind=engine))
+    'postgresql://postgres:password@10.91.16.3/cloud_conversion_tool'
+)
+db_session = scoped_session(
+    sessionmaker(
+        autocommit=False,
+        autoflush=False,
+        bind=engine,
+    )
+)
 task_schema = TaskSchema()
 UPLOAD_FOLDER = '/python-docker/cloud_conversion_tool/files/'
 
 
-#Credentials and pub/sub instantiation
-credentials_json = '/app/credentials/google-credentials.json'
-subscriber = pubsub_v1.SubscriberClient.from_service_account_file(credentials_json)
-
 def main():
     consuming = True
 
-    #Processes performed when a message is received
+    # Credentials and pub/sub instantiation
+    credentials_json = '/app/credentials/google-credentials.json'
+    subscriber = pubsub_v1.SubscriberClient.from_service_account_file(
+        credentials_json
+    )
+
+    # Processes performed when a message is received
     def callback(message):
         print(f"Received message: {message}")
         # The message will be the file name
         check_database(message.data.decode("utf-8"))
         message.ack()
 
-    subscription_path = subscriber.subscription_path('cloud-conversion-system', 'worker_suscription')
+    subscription_path = subscriber.subscription_path(
+        'cloud-conversion-system', 'worker_suscription')
     subscriber.subscribe(subscription_path, callback=callback)
 
     # Starts the message receiving loop
@@ -54,7 +63,7 @@ def main():
 
 
 def check_database(message):
-    message_file_id=int(message)
+    message_file_id = int(message)
     print(message_file_id)
     task = db_session.query(Task).filter_by(id=message_file_id).all()[0]
     print(task)
@@ -99,6 +108,7 @@ def update_task(task_id):
     task.status = Status.PROCESSED
     db_session.commit()
     task_schema.dump(task)
+
 
 if __name__ == "__main__":
     main()
