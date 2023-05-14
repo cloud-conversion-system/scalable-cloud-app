@@ -45,7 +45,9 @@ def main():
         message.ack()
 
     subscription_path = subscriber.subscription_path(
-        'cloud-conversion-system', 'worker_suscription')
+        'cloud-conversion-system',
+        'worker_suscription',
+    )
     subscriber.subscribe(subscription_path, callback=callback)
 
     # Starts the message receiving loop
@@ -64,10 +66,12 @@ def main():
 
 def check_database(message):
     message_file_id = int(message)
-    print(message_file_id)
     task = Task.query.get_or_404(message_file_id)
-    print(task)
     compress_file(task.file_name, task.new_format, task.id)
+    # Verify pending tasks
+    tasks = db_session.query(Task).filter_by(status=Status.UPLOADED).all()
+    for task in tasks:
+        compress_file(task.file_name, task.new_format, task.id)
 
 
 def compress_file(file_name, algorithm, task_id):
