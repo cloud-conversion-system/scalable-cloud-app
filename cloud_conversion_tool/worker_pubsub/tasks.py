@@ -66,7 +66,7 @@ def main():
 
 def check_database(message):
     message_file_id = int(message)
-    task = Task.query.get_or_404(message_file_id)
+    task = db_session.query(Task).filter_by(id=message_file_id).all()[0]
     compress_file(task.file_name, task.new_format, task.id)
     # Verify pending tasks
     tasks = db_session.query(Task).filter_by(status=Status.UPLOADED).all()
