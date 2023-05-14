@@ -114,7 +114,7 @@ class ViewFile(Resource):
             matching_blobs = gcsManager.listBlobs(id_file)
             if len(matching_blobs) == 0:
                 return {"message": "File not found"}, 404
-            file_name = matching_blobs[0].name.split('/')[-1]
+            file_name = matching_blobs[-1].name.split('/')[-1]
             gcsManager.downloadFile(file_name)
             return send_from_directory(directory=UPLOAD_FOLDER, filename=file_name, as_attachment=True)
         except Exception as e:
