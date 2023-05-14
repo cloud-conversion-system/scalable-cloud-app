@@ -10,15 +10,19 @@ UPLOAD_FOLDER = '/python-docker/cloud_conversion_tool/files/'
 
 task_schema = TaskSchema()
 
-#Credentials and pub/sub instantiation
+# Credentials and pub/sub instantiation
 credentials_json = '/app/credentials/google-credentials.json'
-publisher = pubsub_v1.PublisherClient.from_service_account_file(credentials_json)
+publisher = pubsub_v1.PublisherClient.from_service_account_file(
+    credentials_json)
 
 
 class VistaSignUp(Resource):
     def post(self):
         new_user = User(
-            username=request.json["username"], email=request.json["email"], password=request.json["password"])
+            username=request.json["username"],
+            email=request.json["email"],
+            password=request.json["password"],
+        )
         access_token = create_access_token(identity=request.json["username"])
         db.session.add(new_user)
         db.session.commit()
@@ -63,8 +67,13 @@ class ViewTasks(Resource):
         file.save(os.path.join(UPLOAD_FOLDER, file_name))
         file.close()
         # Uploading the file to the bucket
-        gcsManager.uploadFile(os.path.join(
-            UPLOAD_FOLDER, file_name), file_name)
+        gcsManager.uploadFile(
+            os.path.join(
+                UPLOAD_FOLDER,
+                file_name,
+            ),
+            file_name
+        )
         os.remove(os.path.join(UPLOAD_FOLDER, file_name))
 
         new_format = request.form.get("newFormat")
@@ -72,11 +81,13 @@ class ViewTasks(Resource):
         db.session.add(new_task)
         db.session.commit()
 
-        #Sending the message in pub/sub
-        message=str(new_task.id)
+        # Sending the message in pub/sub
+        message = str(new_task.id)
         message_data = message.encode("utf-8")
-        topic_path = publisher.topic_path('cloud-conversion-system', 'file_system_notification')
-        future = publisher.publish(topic_path, data=message_data) #Result of the asynchronous process
+        topic_path = publisher.topic_path(
+            'cloud-conversion-system', 'file_system_notification')
+        # Result of the asynchronous process
+        future = publisher.publish(topic_path, data=message_data)
 
         return task_schema.dump(new_task)
 
@@ -91,6 +102,8 @@ class ViewTask(Resource):
         task = Task.query.get_or_404(id_task)
         db.session.delete(task)
         db.session.commit()
+        # Delete the file from bucket
+        gcsManager.deleteFile(task.file_name)
         return '', 204
 
 
